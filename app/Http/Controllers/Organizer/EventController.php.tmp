@@ -1,0 +1,462 @@
+﻿<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Organizer;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Event;
+use App\Models\SponsorshipPackage;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+
+class EventController extends Controller
+{
+    /**
+     * Show the organizer dashboard.
+     */
+    public function dashboard(): View
+    {
+        $user = auth()->user();
+
+        $events = Event::where('organizer_id', $user->id);
+
+        $stats = [
+            'total_events' => (clone $events)->count(),
+            'published_events' => (clone $events)->published()->count(),
+            'pending_events' => (clone $events)->pending()->count(),
+            'total_views' => (clone $events)->sum('views_count'),
+        ];
+
+        $recentEvents = (clone $events)
+            ->with('category')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('organizer.dashboard', compact('stats', 'recentEvents'));
+    }
+
+    /**
+     * List the organizer's events with status filter and search.
+     */
+    public function index(Request $request): View
+    {
+        $query = Event::where('organizer_id', auth()->id())
+            ->with('category');
+
+        // Status filter
+        if ($request->filled('status')) {
+            $allowedStatuses = ['draft', 'pending', 'approved', 'rejected', 'live', 'completed', 'cancelled'];
+            if (in_array($request->status, $allowedStatuses, true)) {
+                $query->where('status', $request->status);
+            }
+        }
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('city', 'like', "%{$search}%");
+            });
+        }
+
+        $events = $query->latest()->paginate(15)->withQueryString();
+
+        return view('organizer.events.index', compact('events'));
+    }
+
+    /**
+     * Show the multi-step event creation form.
+     */
+    public function create(): View
+    {
+        $categories = Category::whereNull('parent_id')
+            ->with('children')
+            ->orderBy('name')
+            ->get();
+
+        return view('organizer.events.create', compact('categories'));
+    }
+
+    /**
+     * Store a newly created event from the wizard.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'tagline' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'event_type' => 'required|in:in-person,virtual,hybrid',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'venue' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
+            'country' => 'required|string|max:100',
+            'website_url' => 'nullable|url|max:500',
+            'registration_deadline' => 'nullable|date',
+            'expected_audience' => 'required|integer|min:1',
+            'audience_description' => 'nullable|string|max:2000',
+            'budget_min' => 'nullable|numeric|min:0',
+            'budget_max' => 'nullable|numeric|gte:budget_min',
+            'sponsorship_type' => 'nullable|string|in:paid,barter,hybrid',
+            'tags' => 'nullable|string|max:500',
+            'video_url' => 'nullable|url|max:500',
+            'logo' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+        ]);
+
+        $data = [
+            'organizer_id' => auth()->id(),
+            'title' => $validated['title'],
+            'tagline' => $validated['tagline'] ?? null,
+            'description' => $validated['description'],
+            'category_id' => $validated['category_id'],
+            'event_type' => $validated['event_type'],
+            'start_date' => $validated['start_date'],
+            'end_date' => $validated['end_date'],
+            'venue' => $validated['venue'] ?? null,
+            'address' => $validated['address'] ?? null,
+            'city' => $validated['city'],
+            'state' => $validated['state'],
+            'country' => $validated['country'],
+            'website_url' => $validated['website_url'] ?? null,
+            'registration_deadline' => $validated['registration_deadline'] ?? null,
+            'expected_audience' => $validated['expected_audience'],
+            'audience_description' => $validated['audience_description'] ?? null,
+            'budget_min' => $validated['budget_min'] ?? null,
+            'budget_max' => $validated['budget_max'] ?? null,
+            'sponsorship_type' => $validated['sponsorship_type'] ?? null,
+            'video_url' => $validated['video_url'] ?? null,
+            'status' => 'pending',
+        ];
+
+        // Handle tags (comma-separated string to array)
+        if (!empty($validated['tags'])) {
+            $tags = array_map('trim', explode(',', $validated['tags']));
+            $data['tags'] = array_slice($tags, 0, 5);
+        }
+
+        // Handle image uploads
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->uploadImage($request->file('logo'));
+        }
+        if ($request->hasFile('cover_image')) {
+            $data['cover_image'] = $this->uploadImage($request->file('cover_image'));
+        }
+        if ($request->hasFile('banner_image')) {
+            $data['banner_image'] = $this->uploadImage($request->file('banner_image'));
+        }
+
+        $event = Event::create($data);
+
+        return redirect()->route('organizer.events.show', $event)
+            ->with('success', 'Event created successfully! It is now pending approval.');
+    }
+
+    /**
+     * Display a single event.
+     */
+    public function show(Event $event): View
+    {
+        abort_if($event->organizer_id !== auth()->id(), 403);
+
+        $event->load([
+            'category',
+            'packages.benefits',
+            'schedule',
+            'gallery',
+            'team',
+            'sponsorshipRequests.sponsor',
+            'sponsorshipRequests.package',
+        ]);
+
+        return view('organizer.events.show', compact('event'));
+    }
+
+    /**
+     * Show the form for editing an event.
+     */
+    public function edit(Event $event): View
+    {
+        abort_if($event->organizer_id !== auth()->id(), 403);
+
+        $categories = Category::whereNull('parent_id')
+            ->with('children')
+            ->orderBy('name')
+            ->get();
+
+        return view('organizer.events.edit', compact('event', 'categories'));
+    }
+
+    /**
+     * Update an event.
+     */
+    public function update(Request $request, Event $event): RedirectResponse
+    {
+        abort_if($event->organizer_id !== auth()->id(), 403);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'tagline' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'subcategory_id' => 'nullable|exists:categories,id',
+            'event_type' => 'required|in:in-person,virtual,hybrid',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'venue' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
+            'country' => 'required|string|max:100',
+            'website_url' => 'nullable|url|max:500',
+            'registration_deadline' => 'nullable|date',
+            'expected_audience' => 'required|integer|min:1',
+            'audience_description' => 'nullable|string|max:2000',
+            'budget_min' => 'nullable|numeric|min:0',
+            'budget_max' => 'nullable|numeric|gte:budget_min',
+            'sponsorship_type' => 'nullable|string|in:paid,barter,hybrid',
+            'tags' => 'nullable|string|max:500',
+            'video_url' => 'nullable|url|max:500',
+            'logo' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+        ]);
+
+        $data = [
+            'title' => $validated['title'],
+            'tagline' => $validated['tagline'] ?? null,
+            'description' => $validated['description'],
+            'category_id' => $validated['category_id'],
+            'subcategory_id' => $validated['subcategory_id'] ?? null,
+            'event_type' => $validated['event_type'],
+            'start_date' => $validated['start_date'],
+            'end_date' => $validated['end_date'],
+            'venue' => $validated['venue'] ?? null,
+            'address' => $validated['address'] ?? null,
+            'city' => $validated['city'],
+            'state' => $validated['state'],
+            'country' => $validated['country'],
+            'website_url' => $validated['website_url'] ?? null,
+            'registration_deadline' => $validated['registration_deadline'] ?? null,
+            'expected_audience' => $validated['expected_audience'],
+            'audience_description' => $validated['audience_description'] ?? null,
+            'budget_min' => $validated['budget_min'] ?? null,
+            'budget_max' => $validated['budget_max'] ?? null,
+            'sponsorship_type' => $validated['sponsorship_type'] ?? null,
+            'video_url' => $validated['video_url'] ?? null,
+        ];
+
+        // Handle tags (comma-separated string to array)
+        if (!empty($validated['tags'])) {
+            $tags = array_map('trim', explode(',', $validated['tags']));
+            $data['tags'] = array_slice($tags, 0, 5);
+        } else {
+            $data['tags'] = [];
+        }
+
+        // Handle image uploads - replace existing if new file uploaded
+        if ($request->hasFile('logo')) {
+            // Delete old image if it exists
+            if ($event->logo && !str_starts_with($event->logo, 'http')) {
+                Storage::disk('public')->delete($event->logo);
+            }
+            $data['logo'] = $this->uploadImage($request->file('logo'));
+        }
+        if ($request->hasFile('cover_image')) {
+            if ($event->cover_image && !str_starts_with($event->cover_image, 'http')) {
+                Storage::disk('public')->delete($event->cover_image);
+            }
+            $data['cover_image'] = $this->uploadImage($request->file('cover_image'));
+        }
+        if ($request->hasFile('banner_image')) {
+            if ($event->banner_image && !str_starts_with($event->banner_image, 'http')) {
+                Storage::disk('public')->delete($event->banner_image);
+            }
+            $data['banner_image'] = $this->uploadImage($request->file('banner_image'));
+        }
+
+        $event->update($data);
+
+        return redirect()->route('organizer.events.show', $event)
+            ->with('success', 'Event updated successfully!');
+    }
+
+    /**
+     * Delete an event.
+     */
+    public function destroy(Event $event): RedirectResponse
+    {
+        abort_if($event->organizer_id !== auth()->id(), 403);
+
+        // Clean up stored images
+        if ($event->logo && !str_starts_with($event->logo, 'http')) {
+            Storage::disk('public')->delete($event->logo);
+        }
+        if ($event->cover_image && !str_starts_with($event->cover_image, 'http')) {
+            Storage::disk('public')->delete($event->cover_image);
+        }
+        if ($event->banner_image && !str_starts_with($event->banner_image, 'http')) {
+            Storage::disk('public')->delete($event->banner_image);
+        }
+
+        $event->delete();
+
+        return redirect()->route('organizer.events.index')
+            ->with('success', 'Event deleted successfully.');
+    }
+
+    // =========================================================================
+    // Helpers
+    // =========================================================================
+
+    /**
+     * Upload an image file to the public disk under the events/ directory.
+     */
+    private function uploadImage(UploadedFile $file): string
+    {
+        return $file->store('events', 'public');
+    }
+
+    // =========================================================================
+    // Draft endpoints (AJAX)
+    // =========================================================================
+
+    /**
+     * Save or update a draft event via AJAX.
+     */
+    public function saveDraft(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'title' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'category_id' => 'sometimes|exists:categories,id',
+            'event_type' => 'sometimes|in:in-person,virtual,hybrid',
+            'start_date' => 'sometimes|date',
+            'end_date' => 'sometimes|date',
+            'venue' => 'sometimes|string|max:255',
+            'address' => 'sometimes|string|max:500',
+            'city' => 'sometimes|string|max:100',
+            'state' => 'sometimes|string|max:100',
+            'country' => 'sometimes|string|max:100',
+            'website_url' => 'sometimes|url|max:500',
+            'registration_deadline' => 'sometimes|date',
+            'expected_audience' => 'sometimes|integer|min:1',
+            'budget_min' => 'sometimes|numeric|min:0',
+            'budget_max' => 'sometimes|numeric|gte:budget_min',
+            'sponsorship_type' => 'sometimes|string|in:paid,barter,hybrid',
+            'tags' => 'sometimes|string|max:500',
+            'audience_description' => 'sometimes|string|max:2000',
+            'video_url' => 'sometimes|url|max:500',
+            'logo' => 'sometimes|image|mimes:jpeg,png,webp|max:2048',
+            'cover_image' => 'sometimes|image|mimes:jpeg,png,webp|max:2048',
+            'banner_image' => 'sometimes|image|mimes:jpeg,png,webp|max:2048',
+            'audience_age_groups' => 'sometimes|array',
+            'audience_gender' => 'sometimes|array',
+            'audience_income' => 'sometimes|array',
+            'audience_industries' => 'sometimes|array',
+            'audience_reach' => 'sometimes|string|in:Local,Regional,National,International',
+            'sponsor_levels' => 'sometimes|array',
+            'addons' => 'sometimes|array',
+            'plan' => 'sometimes|string',
+        ]);
+
+        $draftData = $request->all();
+        if ($request->hasFile('logo')) {
+            $validated['logo'] = $this->uploadImage($request->file('logo'));
+            $draftData['logo'] = $validated['logo'];
+        }
+        if ($request->hasFile('cover_image')) {
+            $validated['cover_image'] = $this->uploadImage($request->file('cover_image'));
+            $draftData['cover_image'] = $validated['cover_image'];
+        }
+        if ($request->hasFile('banner_image')) {
+            $validated['banner_image'] = $this->uploadImage($request->file('banner_image'));
+            $draftData['banner_image'] = $validated['banner_image'];
+        }
+
+        if (!empty($validated['tags'])) {
+            $draftData['tags'] = $validated['tags'];
+        }
+
+        $draftData['organizer_id'] = $user->id;
+        $draftData['status'] = 'draft';
+
+        $draft = Event::updateOrCreate(
+            ['id' => $request->input('event_id')],
+            $draftData
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Draft saved successfully',
+            'event_id' => $draft->id,
+        ]);
+    }
+
+    /**
+     * Load the latest draft for the current user.
+     */
+    public function loadDraft()
+    {
+        $user = auth()->user();
+        $draft = Event::where('organizer_id', $user->id)
+            ->where('status', 'draft')
+            ->latest()
+            ->first();
+
+        if (!$draft) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No draft found',
+            ], 404);
+        }
+
+        $draft->load(['sponsorshipPackages']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $draft,
+        ]);
+    }
+
+    /**
+     * Delete a draft by its ID.
+     */
+    public function discardDraft($id)
+    {
+        $user = auth()->user();
+        $event = Event::where('id', $id)
+            ->where('organizer_id', $user->id)
+            ->where('status', 'draft')
+            ->first();
+
+        if (!$event) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Draft not found',
+            ], 404);
+        }
+
+        $event->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Draft discarded',
+        ]);
+    }
+}

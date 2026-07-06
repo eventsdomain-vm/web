@@ -1,0 +1,306 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services;
+
+use App\DTOs\EventCreateData;
+use App\DTOs\EventUpdateData;
+use App\Models\Event;
+use App\Models\Participant;
+use App\Models\SponsorshipBenefit;
+use App\Models\SponsorshipPackage;
+use App\Repositories\EventRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+class EventService
+{
+    public function __construct(
+        protected EventRepository $repository,
+    ) {}
+
+    // =========================================================================
+    // Event CRUD
+    // =========================================================================
+
+    public function createEvent(EventCreateData $dto, ?array $packageData = null, ?array $datesData = null, ?array $venuesData = null, ?array $participantsData = null, ?array $teamData = null, bool $isDraft = false): Event
+    {
+        return DB::transaction(function () use ($dto, $packageData, $datesData, $venuesData, $participantsData, $teamData, $isDraft) {
+            $event = $this->repository->create($dto->toEventArray($isDraft));
+
+            if ($packageData) {
+                $this->syncPackages($event, $packageData);
+            }
+
+            if ($datesData) {
+                $this->syncDates($event, $datesData);
+            }
+
+            if ($venuesData) {
+                $this->syncVenues($event, $venuesData);
+            }
+
+            if ($participantsData) {
+                $this->syncParticipants($event, $participantsData);
+            }
+
+            if ($teamData) {
+                $this->syncTeam($event, $teamData);
+            }
+
+            Log::info("Event created: {$event->title}", ['event_id' => $event->id]);
+
+            return $event;
+        });
+    }
+
+    public function updateEvent(Event $event, EventUpdateData $dto): Event
+    {
+        return $this->repository->update($event, $dto->toUpdateArray());
+    }
+
+    public function deleteEvent(Event $event): bool
+    {
+        return DB::transaction(function () use ($event) {
+            // Delete associated packages and benefits
+            $packageIds = $event->packages()->pluck('id');
+            SponsorshipBenefit::whereIn('package_id', $packageIds)->delete();
+            $event->packages()->delete();
+
+            // Clear media
+            foreach (['logo', 'cover_image', 'banner_image', 'gallery'] as $collection) {
+                $event->clearMediaCollection($collection);
+            }
+
+            return $this->repository->delete($event);
+        });
+    }
+
+    // =========================================================================
+    // Workflow
+    // =========================================================================
+
+    public function publish(Event $event): Event
+    {
+        return $this->repository->publish($event);
+    }
+
+    public function reject(Event $event, ?string $reason = null): Event
+    {
+        return $this->repository->reject($event, $reason);
+    }
+
+    public function submitForReview(Event $event): Event
+    {
+        return $this->repository->submitForReview($event);
+    }
+
+    // =========================================================================
+    // Sponsorship Packages
+    // =========================================================================
+
+    public function syncPackages(Event $event, array $packageData): void
+    {
+        foreach ($packageData as $pkgData) {
+            if (empty($pkgData['name']) || empty($pkgData['price']) || $pkgData['price'] <= 0) {
+                continue;
+            }
+
+            $benefits = [];
+            if (! empty($pkgData['benefits'])) {
+                $raw = is_string($pkgData['benefits']) ? explode("\n", $pkgData['benefits']) : $pkgData['benefits'];
+                $benefits = array_values(array_filter(array_map('trim', $raw)));
+            }
+
+            $package = $event->packages()->create([
+                'title' => $pkgData['name'],
+                'price' => $pkgData['price'],
+                'description' => $pkgData['description'] ?? '',
+                'slots_available' => $pkgData['slots_available'] ?? 1,
+                'slots_filled' => 0,
+                'is_active' => true,
+            ]);
+
+            foreach ($benefits as $benefit) {
+                $package->benefitRecords()->create(['benefit_text' => $benefit]);
+            }
+        }
+    }
+
+    public function syncDates(Event $event, array $datesData): void
+    {
+        $event->dates()->delete();
+
+        foreach ($datesData as $dateData) {
+            if (empty($dateData['start_date'])) {
+                continue;
+            }
+
+            $event->dates()->create([
+                'label' => $dateData['label'] ?? null,
+                'start_date' => $dateData['start_date'],
+                'end_date' => $dateData['end_date'] ?? $dateData['start_date'],
+                'start_time' => $dateData['start_time'] ?? null,
+                'end_time' => $dateData['end_time'] ?? null,
+                'timezone' => $dateData['timezone'] ?? 'Asia/Kolkata',
+                'all_day' => ! empty($dateData['all_day']),
+                'sort_order' => $dateData['sort_order'] ?? 0,
+            ]);
+        }
+    }
+
+    public function syncVenues(Event $event, array $venuesData): void
+    {
+        $event->venues()->delete();
+
+        foreach ($venuesData as $venueData) {
+            $event->venues()->create([
+                'venue_type' => $venueData['venue_type'] ?? 'physical',
+                'venue_name' => $venueData['venue_name'] ?? null,
+                'address' => $venueData['address'] ?? null,
+                'city' => $venueData['city'] ?? null,
+                'state' => $venueData['state'] ?? null,
+                'country' => $venueData['country'] ?? 'India',
+                'postal_code' => $venueData['postal_code'] ?? null,
+                'latitude' => $venueData['latitude'] ?? null,
+                'longitude' => $venueData['longitude'] ?? null,
+                'virtual_url' => $venueData['virtual_url'] ?? null,
+                'virtual_platform' => $venueData['virtual_platform'] ?? null,
+                'is_primary' => ! empty($venueData['is_primary']),
+                'sort_order' => $venueData['sort_order'] ?? 0,
+            ]);
+        }
+    }
+
+    public function syncParticipants(Event $event, array $participantsData): void
+    {
+        $event->participants()->delete();
+
+        foreach ($participantsData as $pData) {
+            if (empty($pData['name'])) {
+                continue;
+            }
+
+            $participant = Participant::firstOrCreate(
+                ['name' => $pData['name']],
+                [
+                    'bio' => $pData['bio'] ?? null,
+                    'organization' => $pData['organization'] ?? null,
+                    'designation' => $pData['designation'] ?? null,
+                ]
+            );
+
+            $event->participants()->create([
+                'participant_id' => $participant->id,
+                'participant_type_id' => $pData['participant_type_id'] ?? null,
+                'role_label' => $pData['role_label'] ?? null,
+                'session_title' => $pData['session_title'] ?? null,
+                'performance_start' => $pData['performance_start'] ?? null,
+                'performance_end' => $pData['performance_end'] ?? null,
+                'sort_order' => $pData['sort_order'] ?? 0,
+            ]);
+        }
+    }
+
+    public function syncTeam(Event $event, array $teamData): void
+    {
+        $event->team()->delete();
+
+        foreach ($teamData as $memberData) {
+            if (empty($memberData['user_id'])) {
+                continue;
+            }
+
+            $event->team()->create([
+                'user_id' => $memberData['user_id'],
+                'role' => $memberData['role'] ?? 'member',
+            ]);
+        }
+    }
+
+    public function createPackage(Event $event, array $data): SponsorshipPackage
+    {
+        $benefits = [];
+        if (! empty($data['benefits'])) {
+            $raw = is_string($data['benefits']) ? explode("\n", $data['benefits']) : $data['benefits'];
+            $benefits = array_values(array_filter(array_map('trim', $raw)));
+        }
+
+        $data['event_id'] = $event->id;
+        $data['slots_filled'] = $data['slots_filled'] ?? 0;
+
+        $package = SponsorshipPackage::create($data);
+
+        foreach ($benefits as $benefit) {
+            $package->benefitRecords()->create(['benefit_text' => $benefit]);
+        }
+
+        return $package;
+    }
+
+    public function updatePackage(SponsorshipPackage $package, array $data): SponsorshipPackage
+    {
+        $benefits = null;
+        if (array_key_exists('benefits', $data)) {
+            $raw = is_string($data['benefits']) ? explode("\n", $data['benefits']) : $data['benefits'];
+            $benefits = array_values(array_filter(array_map('trim', $raw)));
+            unset($data['benefits']);
+        }
+
+        $package->update($data);
+
+        if ($benefits !== null) {
+            $package->benefitRecords()->delete();
+            foreach ($benefits as $benefit) {
+                $package->benefitRecords()->create(['benefit_text' => $benefit]);
+            }
+        }
+
+        return $package;
+    }
+
+    public function deletePackage(SponsorshipPackage $package): bool
+    {
+        return DB::transaction(function () use ($package) {
+            $package->benefitRecords()->delete();
+
+            return $package->delete();
+        });
+    }
+
+    // =========================================================================
+    // Queries
+    // =========================================================================
+
+    public function find(int $id): ?Event
+    {
+        return $this->repository->find($id);
+    }
+
+    public function findOrFail(int $id): Event
+    {
+        return $this->repository->findOrFail($id);
+    }
+
+    public function paginatedForOrganizer(int $organizerId, int $perPage = 15, ?string $status = null, ?string $search = null): LengthAwarePaginator
+    {
+        return $this->repository->paginatedForOrganizer($organizerId, $perPage, $status, $search);
+    }
+
+    public function getOrganizerStats(int $organizerId): array
+    {
+        return $this->repository->getOrganizerStats($organizerId);
+    }
+
+    public function getPublicEvents(?int $categoryId = null, ?string $city = null, int $perPage = 12): LengthAwarePaginator
+    {
+        return $this->repository->getPublicEvents($categoryId, $city, $perPage);
+    }
+
+    public function incrementViews(Event $event): void
+    {
+        $this->repository->incrementViews($event);
+    }
+}
