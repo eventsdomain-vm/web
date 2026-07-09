@@ -51,14 +51,14 @@
             'items' => [['route' => 'dashboard', 'label' => 'Overview']],
         ];
 
-        // === DISCOVERY (sponsor) ===
+        // === PLAN (sponsor) ===
         $groups[] = [
-            'label' => 'Discovery', 'icon' => 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', 'roles' => ['sponsor'],
+            'label' => 'Plan', 'icon' => 'M21 13l4-4a1 1 0 01-4 0v0 0-4a1 1 0 010 4m-2 2a1 1 0 012-2 2v4a1 1 0 012 2h4m-2 2a1 1 0 012-2 2v8a1 1 0 012 2h8a1 1 0 011-2v4a1 1 0 011-2m2 2v-2a1 1 0 00-2 2m-6 0a1 1 0 00-6 6', 'roles' => ['sponsor'],
             'items' => [
-                ['route' => 'sponsor.events.index', 'label' => 'Browse Events'],
-                ['route' => 'sponsor.saved.index', 'label' => 'Saved Events'],
-                ['route' => 'sponsor.compare.index', 'label' => 'Compare'],
-                ['route' => 'sponsor.ai-matching.index', 'label' => 'AI Matching'],
+                ['route' => 'sponsor.plan.objectives', 'label' => 'Objectives'],
+                ['route' => 'sponsor.plan.preferences', 'label' => 'Targeting'],
+                ['route' => 'sponsor.plan.budgets', 'label' => 'Budget'],
+                ['route' => 'sponsor.plan.index', 'label' => 'Sponsor Plan'],
             ],
         ];
 

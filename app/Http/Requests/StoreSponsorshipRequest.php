@@ -17,7 +17,7 @@ class StoreSponsorshipRequest extends FormRequest
     {
         return [
             'event_id' => 'required|exists:events,id',
-            'package_id' => 'required|exists:sponsorship_packages,id',
+            'package_id' => 'required|exists:sponsor_packages,id',
             'custom_proposal' => 'nullable|string|max:5000',
             'budget_offer' => 'nullable|numeric|min:0',
             'message' => 'nullable|string|max:2000',

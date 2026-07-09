@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Sponsor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Sponsor;
+use App\Models\SponsorshipRequest;
 use App\Models\SponsorTeam;
 use App\Models\SponsorTeamMember;
 use App\Services\SponsorCollaborationService;
@@ -30,14 +32,19 @@ class TeamController extends Controller
         $sponsorId = $sponsor?->id;
 
         $teams = $sponsorId
-            ? SponsorTeam::where('sponsor_id', $sponsorId)->with(['lead', 'members.user'])->get()
+            ? SponsorTeam::where('sponsor_id', $sponsorId)->with(['event', 'lead', 'members.user'])->get()
             : collect();
 
-        $members = SponsorTeamMember::where('sponsor_id', auth()->id())
-            ->with('user')
-            ->get();
+        $members = $sponsorId
+            ? SponsorTeamMember::where('sponsor_id', $sponsorId)->with('user')->get()
+            : collect();
 
-        return view('sponsor.teams.index', compact('teams', 'members'));
+        // Get events the sponsor is engaged with
+        $events = $sponsorId
+            ? Event::whereIn('id', SponsorshipRequest::where('sponsor_id', $sponsorId)->pluck('event_id')->unique())->get()
+            : collect();
+
+        return view('sponsor.teams.index', compact('teams', 'members', 'events'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -48,18 +55,20 @@ class TeamController extends Controller
         }
 
         $validated = $request->validate([
+            'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
 
         $this->collaborationService->createTeam([
             'sponsor_id' => $sponsor->id,
+            'event_id' => $validated['event_id'],
             'name' => $validated['name'],
             'description' => $validated['description'] ?? null,
         ]);
 
         return redirect()->route('sponsor.teams.index')
-            ->with('success', 'Team created.');
+            ->with('success', 'Team created for project.');
     }
 
     public function addMember(Request $request, SponsorTeam $team): RedirectResponse
@@ -70,14 +79,37 @@ class TeamController extends Controller
         }
 
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role' => 'required|in:admin,editor,viewer,approver,finance',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'designation' => 'required|string|max:255',
+            'role' => 'required|in:viewer,editor,approver,finance',
         ]);
 
-        $this->collaborationService->addTeamMember($team, $validated['user_id'], $validated['role']);
+        // Find or create user
+        $user = \App\Models\User::firstOrCreate(
+            ['email' => $validated['email']],
+            [
+                'name' => $validated['name'],
+                'password' => bcrypt(str()->random(16)),
+                'email_verified_at' => now(),
+            ]
+        );
+
+        // Add team member with designation
+        SponsorTeamMember::firstOrCreate(
+            [
+                'team_id' => $team->id,
+                'user_id' => $user->id,
+            ],
+            [
+                'sponsor_id' => $sponsor->id,
+                'role' => $validated['role'],
+                'designation' => $validated['designation'],
+            ]
+        );
 
         return redirect()->route('sponsor.teams.index')
-            ->with('success', 'Member added.');
+            ->with('success', 'Member added to team.');
     }
 
     public function removeMember(SponsorTeam $team, SponsorTeamMember $member): RedirectResponse

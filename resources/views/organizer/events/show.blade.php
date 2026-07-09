@@ -314,6 +314,71 @@
                 @endforelse
             </div>
 
+            {{-- Sponsor Proposals --}}
+            <div class="card p-6">
+                <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-terracotta-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    Sponsor Proposals ({{ $event->sponsorProposals->count() }})
+                </h3>
+                @forelse($event->sponsorProposals as $proposal)
+                    <div class="border-b border-gray-100 last:border-0 py-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <span class="font-medium text-gray-900">{{ $proposal->sponsor->name }}</span>
+                                <p class="text-sm text-gray-500">{{ $proposal->package->title ?? 'N/A' }} • ₹{{ number_format($proposal->budget_offer ?? $proposal->package->price ?? 0) }}</p>
+                            </div>
+                            <span class="badge badge-{{ $proposal->status_color }} text-xs">{{ $proposal->status_label }}</span>
+                        </div>
+                        @if($proposal->message)
+                            <p class="text-sm text-gray-600 mb-2">{{ Str::limit($proposal->message, 100) }}</p>
+                        @endif
+                        <div class="flex items-center gap-2 mt-3 flex-wrap">
+                            @if($proposal->status === 'submitted')
+                                <form action="{{ route('organizer.proposals.shortlist', [$event, $proposal]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="text-xs px-3 py-1 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100">Shortlist</button>
+                                </form>
+                                <form action="{{ route('organizer.proposals.negotiate', [$event, $proposal]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="organizer_note" value="">
+                                    <button type="submit" class="text-xs px-3 py-1 rounded-full bg-yellow-50 text-yellow-600 hover:bg-yellow-100">Negotiate</button>
+                                </form>
+                                <form action="{{ route('organizer.proposals.accept', [$event, $proposal]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100">Accept</button>
+                                </form>
+                                <button type="button" class="text-xs px-3 py-1 rounded-full bg-red-50 text-red-600 hover:bg-red-100" onclick="confirmReject('{{ $proposal->id }}', '{{ $event->id }}')">Reject</button>
+                            @elseif($proposal->status === 'viewed' || $proposal->status === 'shortlisted')
+                                <form action="{{ route('organizer.proposals.negotiate', [$event, $proposal]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="organizer_note" value="">
+                                    <button type="submit" class="text-xs px-3 py-1 rounded-full bg-yellow-50 text-yellow-600 hover:bg-yellow-100">Start Negotiation</button>
+                                </form>
+                                <form action="{{ route('organizer.proposals.accept', [$event, $proposal]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100">Accept</button>
+                                </form>
+                            @elseif($proposal->status === 'negotiating')
+                                <button type="button" class="text-xs px-3 py-1 rounded-full bg-purple-50 text-purple-600 hover:bg-purple-100" onclick="openCounterModal('{{ $proposal->id }}', '{{ $event->id }}')">Send Counter</button>
+                                <form action="{{ route('organizer.proposals.accept', [$event, $proposal]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100">Accept</button>
+                                </form>
+                            @elseif($proposal->status === 'counter_offer')
+                                <p class="text-xs text-gray-500">Waiting for sponsor response to counter offer</p>
+                            @elseif($proposal->status === 'agreed')
+                                <p class="text-xs text-emerald-600 font-medium">✓ Accepted - Ready for contract</p>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-6">
+                        <svg class="w-10 h-10 text-gray-200 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <p class="text-gray-500 text-sm">No proposals yet.</p>
+                    </div>
+                @endforelse
+            </div>
+
             {{-- Management --}}
             <div class="card p-6">
                 <h3 class="font-bold text-gray-900 mb-4">Management</h3>
@@ -381,4 +446,77 @@
             </div>
         </div>
     </div>
+
+    {{-- Reject Proposal Modal --}}
+    <div id="rejectModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 class="font-semibold text-lg mb-4">Reject Proposal</h3>
+            <form id="rejectForm" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Rejection Note (Optional)</label>
+                    <textarea name="rejection_note" class="w-full border-gray-300 rounded-md" rows="3" placeholder="Provide feedback to the sponsor..."></textarea>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="document.getElementById('rejectModal').classList.add('hidden')" class="btn-outline">Cancel</button>
+                    <button type="submit" class="btn-danger">Reject Proposal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- Counter Offer Modal --}}
+    <div id="counterModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 class="font-semibold text-lg mb-4">Send Counter Offer</h3>
+            <form id="counterForm" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Counter Amount (₹)</label>
+                    <input type="number" name="counter_amount" class="w-full border-gray-300 rounded-md" placeholder="0.00" min="0" step="0.01" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Message (Optional)</label>
+                    <textarea name="counter_message" class="w-full border-gray-300 rounded-md" rows="3" placeholder="Add any notes for the sponsor..."></textarea>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="document.getElementById('counterModal').classList.add('hidden')" class="btn-outline">Cancel</button>
+                    <button type="submit" class="btn-primary">Send Counter Offer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function confirmReject(proposalId, eventId) {
+            const modal = document.getElementById('rejectModal');
+            const form = document.getElementById('rejectForm');
+            form.action = `{{ route('organizer.proposals.reject', ['event' => ':event', 'proposal' => ':proposal']) }}`
+                .replace(':event', eventId)
+                .replace(':proposal', proposalId);
+            modal.classList.remove('hidden');
+        }
+
+        function openCounterModal(proposalId, eventId) {
+            const modal = document.getElementById('counterModal');
+            const form = document.getElementById('counterForm');
+            form.action = `{{ route('organizer.proposals.counter', ['event' => ':event', 'proposal' => ':proposal']) }}`
+                .replace(':event', eventId)
+                .replace(':proposal', proposalId);
+            modal.classList.remove('hidden');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            const rejectModal = document.getElementById('rejectModal');
+            const counterModal = document.getElementById('counterModal');
+            
+            if (event.target === rejectModal) {
+                rejectModal.classList.add('hidden');
+            }
+            if (event.target === counterModal) {
+                counterModal.classList.add('hidden');
+            }
+        });
+    </script>
 </x-app-layout>

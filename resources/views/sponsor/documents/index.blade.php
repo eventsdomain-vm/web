@@ -28,7 +28,7 @@
         @empty
             <div class="card p-8 text-center text-gray-500">No documents yet.</div>
         @endforelse
-        {{ $documents->links() }}
+        @if(method_exists($documents, 'links')){{ $documents->links() }}@endif
     </div>
     <div id="createModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50" onclick="if(event.target===this)this.classList.add('hidden')">
         <div class="bg-white rounded-lg p-6 w-full max-w-md" onclick="event.stopPropagation()">

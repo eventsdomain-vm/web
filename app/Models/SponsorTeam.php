@@ -15,6 +15,7 @@ class SponsorTeam extends Model
 
     protected $fillable = [
         'sponsor_id',
+        'event_id',
         'name',
         'description',
         'lead_id',
@@ -31,6 +32,11 @@ class SponsorTeam extends Model
     public function sponsor(): BelongsTo
     {
         return $this->belongsTo(Sponsor::class, 'sponsor_id');
+    }
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class, 'event_id');
     }
 
     public function lead(): BelongsTo

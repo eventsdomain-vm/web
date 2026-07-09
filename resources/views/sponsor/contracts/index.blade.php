@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Contracts</h2>
-            <span class="text-sm text-gray-500">{{ $contracts->total() }} total</span>
+            <span class="text-sm text-gray-500">{{ method_exists($contracts, 'total') ? $contracts->total() : $contracts->count() }} total</span>
         </div>
     </x-slot>
     <div class="container-page py-6">
@@ -26,6 +26,6 @@
         @empty
             <div class="card p-8 text-center text-gray-500">No contracts yet.</div>
         @endforelse
-        {{ $contracts->links() }}
+        @if(method_exists($contracts, 'links')){{ $contracts->links() }}@endif
     </div>
 </x-app-layout>

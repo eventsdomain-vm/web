@@ -87,11 +87,11 @@ use App\Http\Controllers\Sponsor\AnnouncementController as SponsorAnnouncementCo
 use App\Http\Controllers\Sponsor\AuditLogController as SponsorAuditLogController;
 use App\Http\Controllers\Sponsor\BrandAssetController as SponsorBrandAssetController;
 use App\Http\Controllers\Sponsor\BudgetController as SponsorBudgetController;
+use App\Http\Controllers\Sponsor\SponsorPlanController;
 use App\Http\Controllers\Sponsor\CampaignController as SponsorCampaignController;
 use App\Http\Controllers\Sponsor\CompareController as SponsorCompareController;
-use App\Http\Controllers\Sponsor\ContractController as SponsorContractController;
-use App\Http\Controllers\Sponsor\DashboardController as SponsorDashboardController;
 use App\Http\Controllers\Sponsor\DocumentController as SponsorDocumentController;
+use App\Http\Controllers\Sponsor\DashboardController as SponsorDashboardController;
 use App\Http\Controllers\Sponsor\EventController as SponsorEventController;
 use App\Http\Controllers\Sponsor\IntegrationController as SponsorIntegrationController;
 use App\Http\Controllers\Sponsor\InvoiceController as SponsorInvoiceController;
@@ -107,6 +107,7 @@ use App\Http\Controllers\Sponsor\SecuritySettingsController as SponsorSecuritySe
 use App\Http\Controllers\Sponsor\SettingsController as SponsorSettingsController;
 use App\Http\Controllers\Sponsor\TaskController as SponsorTaskController;
 use App\Http\Controllers\Sponsor\TeamController as SponsorTeamController;
+use App\Http\Controllers\Sponsor\ContractController as SponsorContractController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -181,6 +182,13 @@ Route::middleware(['auth', 'role:organizer'])->prefix('organizer')->name('organi
     Route::post('/events/{event}/requests/{request}/accept', [OrganizerSponsorController::class, 'acceptRequest'])->name('requests.accept');
     Route::post('/events/{event}/requests/{request}/reject', [OrganizerSponsorController::class, 'rejectRequest'])->name('requests.reject');
 
+    // Sponsor Proposal Management
+    Route::post('/events/{event}/proposals/{proposal}/accept', [\App\Http\Controllers\Organizer\ProposalController::class, 'accept'])->name('proposals.accept');
+    Route::post('/events/{event}/proposals/{proposal}/reject', [\App\Http\Controllers\Organizer\ProposalController::class, 'reject'])->name('proposals.reject');
+    Route::post('/events/{event}/proposals/{proposal}/shortlist', [\App\Http\Controllers\Organizer\ProposalController::class, 'shortlist'])->name('proposals.shortlist');
+    Route::post('/events/{event}/proposals/{proposal}/negotiate', [\App\Http\Controllers\Organizer\ProposalController::class, 'startNegotiation'])->name('proposals.negotiate');
+    Route::post('/events/{event}/proposals/{proposal}/counter', [\App\Http\Controllers\Organizer\ProposalController::class, 'sendCounterOffer'])->name('proposals.counter');
+
     // Partner Bid Management
     Route::post('/events/{event}/bids/{bid}/accept', [OrganizerPartnerController::class, 'acceptBid'])->name('bids.accept');
     Route::post('/events/{event}/bids/{bid}/reject', [OrganizerPartnerController::class, 'rejectBid'])->name('bids.reject');
@@ -239,8 +247,21 @@ Route::middleware(['auth', 'role:sponsor'])->prefix('sponsor')->name('sponsor.')
 
     // Event Discovery
     Route::get('/events', [SponsorEventController::class, 'index'])->name('events.index');
-    Route::get('/events/{event}', [SponsorEventController::class, 'show'])->name('events.show');
-    Route::post('/events/{event}/request', [SponsorEventController::class, 'requestSponsorship'])->name('events.request');
+    Route::get('/plan', [SponsorPlanController::class, 'index'])->name('plan.index');
+    Route::get('/plan/objectives', [SponsorPlanController::class, 'objectives'])->name('plan.objectives');
+    Route::post('/plan/objectives', [SponsorPlanController::class, 'storeObjective'])->name('plan.objectives.store');
+    Route::put('/plan/objectives/{objective}', [SponsorPlanController::class, 'updateObjective'])->name('plan.objectives.update');
+    Route::delete('/plan/objectives/{objective}', [SponsorPlanController::class, 'destroyObjective'])->name('plan.objectives.destroy');
+
+    Route::get('/plan/preferences', [SponsorPlanController::class, 'preferences'])->name('plan.preferences');
+    Route::put('/plan/preferences', [SponsorPlanController::class, 'updatePreferences'])->name('plan.preferences.update');
+
+    Route::get('/plan/budgets', [SponsorPlanController::class, 'budgets'])->name('plan.budgets');
+    Route::post('/plan/budgets', [SponsorPlanController::class, 'createBudget'])->name('plan.budgets.store');
+    Route::put('/plan/budgets/{allocation}', [SponsorPlanController::class, 'updateBudget'])->name('plan.budgets.update');
+    Route::delete('/plan/budgets/{allocation}', [SponsorPlanController::class, 'deleteBudget'])->name('plan.budgets.delete');
+
+    Route::post('/plan/generate-recommendations', [SponsorPlanController::class, 'generateAiRecommendations'])->name('plan.generate-recommendations');
 
     // Save / Unsave Events
     Route::get('/saved', [SponsorSavedEventController::class, 'index'])->name('saved.index');
@@ -248,6 +269,7 @@ Route::middleware(['auth', 'role:sponsor'])->prefix('sponsor')->name('sponsor.')
     Route::delete('/events/{event}/save', [SponsorSavedEventController::class, 'destroy'])->name('events.unsave');
     Route::post('/events/{event}/toggle-save', [SponsorSavedEventController::class, 'toggle'])->name('events.toggle-save');
     Route::post('/events/{event}/request', [SponsorEventController::class, 'requestSponsorship'])->name('events.request');
+    Route::get('/events/{event}', [SponsorEventController::class, 'show'])->name('events.show');
 
     // Compare Events
     Route::get('/compare', [SponsorCompareController::class, 'index'])->name('compare.index');

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Campaigns</h2>
-            <span class="text-sm text-gray-500">{{ $campaigns->total() }} total</span>
+            <span class="text-sm text-gray-500">{{ method_exists($campaigns, 'total') ? $campaigns->total() : $campaigns->count() }} total</span>
         </div>
     </x-slot>
     <div class="container-page py-6">
@@ -35,6 +35,6 @@
                 <a href="{{ route('sponsor.events.index') }}" class="text-terracotta-500 hover:underline">Browse events to start a sponsorship</a>
             </div>
         @endforelse
-        {{ $campaigns->links() }}
+        @if(method_exists($campaigns, 'links')){{ $campaigns->links() }}@endif
     </div>
 </x-app-layout>

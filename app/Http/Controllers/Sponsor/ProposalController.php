@@ -16,7 +16,7 @@ class ProposalController extends Controller
     public function index(): View
     {
         $proposals = auth()->user()->sponsorProposals()
-            ->with('event', 'package')
+            ->with('event.category', 'package')
             ->latest()
             ->paginate(15);
 

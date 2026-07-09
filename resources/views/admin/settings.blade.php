@@ -122,7 +122,7 @@
                     {{-- Social Login --}}
                     <div x-show="tab === 'social-login'" x-cloak class="card p-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Social Login & Posting Configuration</h3>
-                        <p class="text-sm text-gray-500 mb-4">Configure OAuth credentials for Organizer and Partner social media login and social posting (Facebook, LinkedIn, Google/YouTube).</p>
+                        <p class="text-sm text-gray-500 mb-4">Configure OAuth credentials for Organizer and Partner social media login and social posting (Facebook, Instagram, LinkedIn, Google/YouTube).</p>
 
                         <details class="border border-gray-200 rounded-lg p-4 mb-4">
                             <summary class="cursor-pointer font-medium text-gray-900">Google OAuth</summary>
@@ -143,11 +143,17 @@
                         </details>
 
                         <details class="border border-gray-200 rounded-lg p-4 mb-4">
-                            <summary class="cursor-pointer font-medium text-gray-900">Facebook OAuth</summary>
+                            <summary class="cursor-pointer font-medium text-gray-900">Facebook & Instagram OAuth</summary>
                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div><label class="label">App ID</label><input type="text" name="social_facebook_client_id" value="{{ old('social_facebook_client_id', $settings['social-login']['social_facebook_client_id'] ?? '') }}" class="input-field"></div>
                                 <div><label class="label">App Secret</label><input type="password" name="social_facebook_client_secret" value="{{ old('social_facebook_client_secret', $settings['social-login']['social_facebook_client_secret'] ?? '') }}" class="input-field"></div>
                                 <div class="md:col-span-2"><label class="label">Allowed Redirect URIs</label><div class="bg-gray-50 text-sm text-gray-600 rounded p-2">{{ url('/organizer/social/facebook/callback') }}<br>{{ url('/login/facebook/callback') }}</div></div>
+                            </div>
+                            <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                <p class="text-sm text-blue-800"><strong>Instagram:</strong> Uses the same Facebook App credentials. No separate setup needed. The connected Facebook account must have an Instagram Business or Creator account linked to a Facebook Page. Instagram posting is done through the Facebook Graph API.</p>
+                            </div>
+                            <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                                <p class="text-sm text-amber-800"><strong>Required Facebook App Permissions:</strong> pages_show_list, pages_read_engagement, pages_manage_posts, instagram_basic, instagram_content_publish, instagram_manage_insights. These must be approved via App Review before going live.</p>
                             </div>
                         </details>
 

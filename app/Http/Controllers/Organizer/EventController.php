@@ -168,7 +168,7 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        $event->load(['category', 'packages.benefitRecords', 'schedule', 'gallery', 'team', 'sponsorshipRequests.sponsor', 'sponsorshipRequests.package', 'partnerBids.partner', 'partnerBids.service']);
+        $event->load(['category', 'packages.benefitRecords', 'schedule', 'gallery', 'team', 'sponsorshipRequests.sponsor', 'sponsorshipRequests.package', 'partnerBids.partner', 'partnerBids.service', 'sponsorProposals.sponsor', 'sponsorProposals.package']);
 
         return view('organizer.events.show', ['event' => $event]);
     }

@@ -18,18 +18,20 @@ class AIRecommendationService
         $profile = $this->buildSponsorProfile($userId);
 
         $events = Event::query()
-            ->where('status', 'published')
+            ->where('status', 'live')
             ->where('start_date', '>', now());
 
         if (! empty($filters['industry'])) {
-            $events->where('category', $filters['industry']);
+            $events->whereHas('category', function ($q) use ($filters) {
+                $q->where('name', $filters['industry']);
+            });
         }
 
         if (! empty($filters['location'])) {
             $events->where('city', 'like', '%'.$filters['location'].'%');
         }
 
-        $events = $events->with(['packages', 'user'])->get();
+        $events = $events->with(['packages', 'organizer'])->get();
         $appliedEventIds = SponsorProposal::where('sponsor_id', $userId)->pluck('event_id')->toArray();
 
         return $events

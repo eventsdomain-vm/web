@@ -50,7 +50,7 @@ class SavedEventController extends Controller
         return redirect()->back()->with('success', 'Event removed from your watchlist.');
     }
 
-    public function toggle(Event $event): JsonResponse
+    public function toggle(Event $event): JsonResponse|RedirectResponse
     {
         $user = auth()->user();
         $saved = SponsorSavedEvent::where('sponsor_id', $user->id)
@@ -59,15 +59,19 @@ class SavedEventController extends Controller
 
         if ($saved) {
             $saved->delete();
-
-            return response()->json(['saved' => false]);
+            $isSaved = false;
+        } else {
+            SponsorSavedEvent::create([
+                'sponsor_id' => $user->id,
+                'event_id' => $event->id,
+            ]);
+            $isSaved = true;
         }
 
-        SponsorSavedEvent::create([
-            'sponsor_id' => $user->id,
-            'event_id' => $event->id,
-        ]);
+        if (request()->expectsJson()) {
+            return response()->json(['saved' => $isSaved]);
+        }
 
-        return response()->json(['saved' => true]);
+        return redirect()->back()->with('success', $isSaved ? 'Event saved to your watchlist.' : 'Event removed from your watchlist.');
     }
 }

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Browse Events</h2>
-            <p class="text-sm text-gray-500">{{ $events->total() }} event{{ $events->total() !== 1 ? 's' : '' }} available</p>
+            <p class="text-sm text-gray-500">{{ method_exists($events, 'total') ? $events->total() : $events->count() }} event{{ (method_exists($events, 'total') ? $events->total() : $events->count()) !== 1 ? 's' : '' }} available</p>
         </div>
     </x-slot>
 
@@ -203,7 +203,7 @@
 
     @if($events->hasPages())
         <div class="mt-8">
-            {{ $events->withQueryString()->links() }}
+            @if(method_exists($events, 'links')){{ $events->withQueryString()->links() }}@endif
         </div>
     @endif
 </x-app-layout>

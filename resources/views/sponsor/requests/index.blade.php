@@ -62,7 +62,7 @@
                     </table>
                 </div>
                 <div class="px-6 py-4 border-t border-gray-100">
-                    {{ $requests->links() }}
+                    @if(method_exists($requests, 'links')){{ $requests->links() }}@endif
                 </div>
             </div>
         </div>

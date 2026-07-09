@@ -211,7 +211,7 @@ class EventController extends Controller
     public function requestSponsorship(Request $request, Event $event)
     {
         $validated = $request->validate([
-            'package_id' => 'required|exists:sponsorship_packages,id',
+            'package_id' => 'required|exists:sponsor_packages,id',
             'message' => 'required|string|max:2000',
             'budget_offer' => 'nullable|numeric|min:0',
         ]);

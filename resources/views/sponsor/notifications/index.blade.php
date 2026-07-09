@@ -51,7 +51,7 @@
         @endforelse
 
         <div class="mt-4">
-            {{ $notifications->links() }}
+            @if(method_exists($notifications, 'links')){{ $notifications->links() }}@endif
         </div>
     </div>
 </x-app-layout>

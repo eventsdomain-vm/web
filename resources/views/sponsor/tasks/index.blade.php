@@ -37,7 +37,9 @@
         @empty
             <div class="card p-8 text-center text-gray-500">No tasks yet.</div>
         @endforelse
-        {{ $tasks->links() }}
+        @if(method_exists($tasks, 'links'))
+            {{ $tasks->links() }}
+        @endif
     </div>
     <div id="createTaskModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50" onclick="if(event.target===this)this.classList.add('hidden')">
         <div class="bg-white rounded-lg p-6 w-full max-w-md" onclick="event.stopPropagation()">

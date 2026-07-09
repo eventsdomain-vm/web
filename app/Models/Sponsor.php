@@ -110,8 +110,28 @@ class Sponsor extends Model
         return $this->hasMany(SponsorApprovalWorkflow::class, 'sponsor_id');
     }
 
-    public function messages(): HasMany
+    public function objectives(): HasMany
     {
-        return $this->hasMany(SponsorMessage::class, 'sponsor_id');
+        return $this->hasMany(SponsorObjective::class, 'sponsor_id');
+    }
+
+    public function preferences(): HasMany
+    {
+        return $this->hasMany(SponsorPreference::class, 'sponsor_id');
+    }
+
+    public function budgetAllocations(): HasMany
+    {
+        return $this->hasMany(SponsorBudgetAllocation::class, 'sponsor_id');
+    }
+
+    public function campaigns(): HasMany
+    {
+        return $this->hasMany(SponsorCampaign::class, 'sponsor_id');
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(SponsorshipContract::class, 'sponsor_id');
     }
 }

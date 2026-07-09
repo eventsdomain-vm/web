@@ -66,7 +66,7 @@
                 @endforelse
             </div>
             <div class="px-6 py-3 border-t border-gray-100">
-                {{ $messages->links() }}
+                @if(method_exists($messages, 'links')){{ $messages->links() }}@endif
             </div>
         </div>
     </div>

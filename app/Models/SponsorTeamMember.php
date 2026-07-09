@@ -17,6 +17,7 @@ class SponsorTeamMember extends Model
         'user_id',
         'role',
         'team_id',
+        'designation',
     ];
 
     public function sponsor(): BelongsTo
