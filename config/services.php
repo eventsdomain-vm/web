@@ -35,6 +35,15 @@ return [
         ],
     ],
 
+    'zenmux' => [
+        'key' => env('ZENMUX_API_KEY'),
+        'base_url' => env('ZENMUX_BASE_URL', 'https://api.zenmux.app/v1'),
+    ],
+
+    'ai' => [
+        'openai_model' => env('AI_OPENAI_MODEL', 'gpt-4o'),
+    ],
+
     'anthropic' => [
         'key' => env('ANTHROPIC_API_KEY'),
         'model' => env('ANTHROPIC_MODEL', 'claude-opus-4-8'),

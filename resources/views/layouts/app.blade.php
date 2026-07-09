@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="linkedin-domain-verification" content="2d2f2b43-b1ae-4cb8-8d61-d250c749e174">
     <meta name="description" content="@yield('meta_description', 'EventsDomain - Your Event Dashboard')">
     <title>@yield('title', config('app.name', 'EventsDomain')) - Dashboard</title>
     <link rel="preconnect" href="https://fonts.bunny.net">

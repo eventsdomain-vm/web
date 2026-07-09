@@ -9,3 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('social:publish-due')->everyMinute();
+
+Schedule::command('social:auto-post-linkedin')->dailyAt('15:00');

@@ -41,7 +41,7 @@ class AdminSeoDashboardController extends Controller
     private function getIndexedPagesCount(): int
     {
         $count = Event::whereNotNull('slug')
-            ->where('status', 'published')
+            ->where('status', 'approved')
             ->where('approval_status', 'approved')
             ->count();
 

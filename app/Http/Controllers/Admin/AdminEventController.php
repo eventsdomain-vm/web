@@ -52,13 +52,18 @@ class AdminEventController extends Controller
 
     public function approve(Event $event)
     {
-        $event->update(['status' => 'published']);
+        $event->update([
+            'status' => 'approved',
+            'approval_status' => 'approved',
+            'is_published' => true,
+            'published_at' => now(),
+        ]);
 
         $this->logActivity(
             'event_approved',
             "Event '{$event->title}' approved and published",
             $event,
-            ['previous_status' => 'pending', 'new_status' => 'published']
+            ['previous_status' => $event->getOriginal('status'), 'new_status' => 'approved']
         );
 
         return redirect()->route('admin.events')
@@ -73,6 +78,7 @@ class AdminEventController extends Controller
 
         $event->update([
             'status' => 'rejected',
+            'approval_status' => 'rejected',
             'rejection_reason' => $request->rejection_reason,
         ]);
 

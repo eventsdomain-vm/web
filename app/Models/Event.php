@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -43,6 +44,7 @@ class Event extends Model implements HasMedia
         'registration_url',
         'website_url',
         'video_url',
+        'plan',
         'logo',
         'cover_image',
         'banner_image',
@@ -61,6 +63,7 @@ class Event extends Model implements HasMedia
         'country',
         'primary_latitude',
         'primary_longitude',
+        'has_celebrity',
     ];
 
     protected $casts = [
@@ -129,6 +132,36 @@ class Event extends Model implements HasMedia
     public function gallery(): HasMany
     {
         return $this->hasMany(EventGallery::class, 'event_id');
+    }
+
+    public function audience(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(EventAudience::class);
+    }
+
+    public function sponsorshipLevels(): HasMany
+    {
+        return $this->hasMany(EventSponsorshipLevel::class);
+    }
+
+    public function eventMedia(): HasMany
+    {
+        return $this->hasMany(EventMedia::class);
+    }
+
+    public function stalls(): HasMany
+    {
+        return $this->hasMany(EventStall::class);
+    }
+
+    public function fnbOptions(): HasMany
+    {
+        return $this->hasMany(EventFnbOption::class);
+    }
+
+    public function adSpaces(): HasMany
+    {
+        return $this->hasMany(EventAdSpace::class);
     }
 
     public function schedule(): HasMany
@@ -352,6 +385,23 @@ class Event extends Model implements HasMedia
             }
         } catch (\Throwable) {}
 
+        return null;
+    }
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        if (empty($this->logo)) {
+            return null;
+        }
+        if (str_starts_with($this->logo, 'http://') || str_starts_with($this->logo, 'https://')) {
+            return $this->logo;
+        }
+        try {
+            $disk = Storage::disk('public');
+            if ($disk->exists($this->logo)) {
+                return $disk->url($this->logo);
+            }
+        } catch (\Throwable) {}
         return null;
     }
 

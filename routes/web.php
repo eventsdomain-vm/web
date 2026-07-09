@@ -155,6 +155,13 @@ Route::middleware(['auth', 'role:organizer'])->prefix('organizer')->name('organi
     Route::get('/events/load-draft', [OrganizerEventController::class, 'loadDraft'])->name('events.loadDraft');
     Route::delete('/events/{id}/discard-draft', [OrganizerEventController::class, 'discardDraft'])->name('events.discardDraft');
 
+    // 7-step Submit Event Wizard endpoints (must be before resource to avoid wildcard capture)
+    Route::post('/events/draft', [\App\Http\Controllers\Organizer\SubmitEventController::class, 'saveDraft'])->name('events.submit-draft');
+    Route::get('/events/draft', [\App\Http\Controllers\Organizer\SubmitEventController::class, 'loadDraft'])->name('events.load-submit-draft');
+    Route::post('/events/draft/clear', [\App\Http\Controllers\Organizer\SubmitEventController::class, 'clearDraft'])->name('events.clear-submit-draft');
+    Route::post('/events/submit', [\App\Http\Controllers\Organizer\SubmitEventController::class, 'submit'])->name('events.submit-final');
+    Route::post('/events/upload-image', [\App\Http\Controllers\Organizer\SubmitEventController::class, 'uploadImage'])->name('events.upload-image');
+
     Route::resource('events', OrganizerEventController::class);
 
     Route::resource('events.schedules', OrganizerScheduleController::class);
@@ -183,6 +190,11 @@ Route::middleware(['auth', 'role:organizer'])->prefix('organizer')->name('organi
     Route::post('/events/{event}/posts', [SocialPostController::class, 'store'])->name('posts.store');
     Route::post('/posts/{post}/publish', [SocialPostController::class, 'publish'])->name('posts.publish');
     Route::delete('/posts/{post}', [SocialPostController::class, 'destroy'])->name('posts.destroy');
+
+    // AI Social Posts
+    Route::post('/events/{event}/posts/ai/generate', [SocialPostAIController::class, 'generate'])->name('posts.ai.generate');
+    Route::post('/events/{event}/posts/ai/reformat', [SocialPostAIController::class, 'reformat'])->name('posts.ai.reformat');
+    Route::post('/events/{event}/posts/ai/auto-schedule', [SocialPostAIController::class, 'autoSchedule'])->name('posts.ai.auto-schedule');
 
     // --- PRD Workspace Modules ---
 
@@ -372,10 +384,17 @@ Route::middleware('auth')->prefix('payments')->name('payments.')->group(function
 Route::post('/webhooks/payments/{gateway}', [PaymentWebhookController::class, 'handle'])
     ->name('webhooks.payments');
 
+// Public Partner Discovery
+Route::get('/partners', [App\Http\Controllers\PartnerDiscoveryController::class, 'index'])->name('partners.index');
+Route::post('/partners', [App\Http\Controllers\PartnerDiscoveryController::class, 'store'])->name('partners.store');
+
 // Partner Routes
 Route::middleware(['auth', 'role:partner'])->prefix('partner')->name('partner.')->group(function () {
     // Workspace Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Partner\DashboardController::class, 'index'])->name('dashboard');
+
+    // Event Discovery
+    Route::get('/discover', [App\Http\Controllers\Partner\DiscoveryController::class, 'index'])->name('discover');
 
     // Service Marketplace (existing)
     Route::resource('services', PartnerServiceController::class);

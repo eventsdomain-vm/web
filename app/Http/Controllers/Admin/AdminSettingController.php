@@ -60,6 +60,24 @@ class AdminSettingController extends Controller
 
     public function update(Request $request)
     {
+        // Handle checkboxes: when a checkbox is checked, both the hidden input (0)
+        // and checkbox (1) submit as an array with multipart/form-data encoding.
+        // We need to resolve each to a single value before validation.
+        $booleanKeys = [
+            'flag_registration', 'flag_event_creation', 'flag_sponsorships',
+            'flag_social_login', 'flag_public_profiles', 'flag_event_search',
+            'cdn_enabled', 'minify_html', 'lazy_load_images',
+            'enforce_https', 'enable_csp',
+            'ai_search_enabled', 'ai_content_enabled', 'ai_recommendations_enabled',
+            'backup_include_files', 'auto_approve_events', 'maintenance_mode',
+        ];
+        foreach ($booleanKeys as $key) {
+            $val = $request->input($key);
+            if (is_array($val)) {
+                $request->merge([$key => in_array('1', $val) ? '1' : '0']);
+            }
+        }
+
         $validated = $request->validate([
             // General
             'site_name' => 'nullable|string|max:255',

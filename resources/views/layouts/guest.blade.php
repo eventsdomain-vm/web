@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="linkedin-domain-verification" content="2d2f2b43-b1ae-4cb8-8d61-d250c749e174">
     <meta name="description" content="{{ $meta_description ?? 'EventsDomain - India\'s B2B Event Sponsorship & Partnership Marketplace' }}">
     <title>{{ $title ?? config('app.name', 'EventsDomain') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">

@@ -13,7 +13,9 @@
                     <select name="status" class="input-field w-auto">
                         <option value="">All Status</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="published" {{ request('status') === 'published' ? 'selected' : '' }}>Published</option>
+                        <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="live" {{ request('status') === 'live' ? 'selected' : '' }}>Live</option>
+                        <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
                         <option value="draft" {{ request('status') === 'draft' ? 'selected' : '' }}>Draft</option>
                     </select>
                     <input type="text" name="search" placeholder="Search events..." value="{{ request('search') }}" class="input-field w-64">
@@ -59,19 +61,20 @@
                                             @if($event->status === 'pending')
                                                 <form action="{{ route('admin.events.approve', $event) }}" method="POST" class="inline">
                                                     @csrf
-                                                    @method('PATCH')
                                                     <button type="submit" class="text-green-600 hover:text-green-800 text-sm font-medium">
                                                         Approve
                                                     </button>
                                                 </form>
                                                 <form action="{{ route('admin.events.reject', $event) }}" method="POST" class="inline">
                                                     @csrf
-                                                    @method('PATCH')
                                                     <button type="submit" class="text-red-600 hover:text-red-800 text-sm font-medium">
                                                         Reject
                                                     </button>
                                                 </form>
                                             @endif
+                                            <a href="{{ route('admin.events.show', $event) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                                View
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

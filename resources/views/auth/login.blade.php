@@ -69,7 +69,6 @@
                             @endif
                         </div>
 
-                        <x-recaptcha />
                         <button type="submit" class="bg-terracotta-500 hover:bg-terracotta-700 shadow-sm hover:shadow-md flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold text-white transition">
                             Sign In
                         </button>

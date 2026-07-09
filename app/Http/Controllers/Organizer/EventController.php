@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveDraftRequest;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\ParticipantType;
@@ -130,13 +129,18 @@ class EventController extends Controller
     {
         $categories = Category::whereNull('parent_id')->with('children')->orderBy('name')->get();
         $participantTypes = ParticipantType::orderBy('sort_order')->get();
-        $amenities = Amenity::orderBy('sort_order')->get();
 
-        return view('organizer.events.create', [
-            'categories' => $categories,
-            'participantTypes' => $participantTypes,
-            'amenities' => $amenities,
-        ]);
+        // 7-step wizard data
+        $plans = \App\Models\Plan::orderBy('price')->get();
+        $audienceTypes = \App\Models\AudienceType::orderBy('label')->get();
+        $ageGroups = \App\Models\AgeGroup::orderBy('sort_order')->get();
+        $industries = \App\Models\Industry::orderBy('label')->get();
+        $draft = \App\Models\EventDraft::where('user_id', \Illuminate\Support\Facades\Auth::id())->first();
+
+        return view('organizer.events.create', compact(
+            'categories', 'participantTypes',
+            'plans', 'audienceTypes', 'ageGroups', 'industries', 'draft'
+        ));
     }
 
     public function store(StoreEventRequest $request): RedirectResponse

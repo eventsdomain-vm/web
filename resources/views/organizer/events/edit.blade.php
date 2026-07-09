@@ -115,12 +115,16 @@
                         <input type="text" name="city" value="{{ old('city', $event->city) }}" class="input-field input-lg" required>
                     </div>
                     <div class="input-group">
-                        <label class="label">State <span class="text-red-500">*</span></label>
-                        <input type="text" name="state" value="{{ old('state', $event->state) }}" class="input-field input-lg" required>
+                        <label class="label">State</label>
+                        <input type="text" name="state" value="{{ old('state', $event->state) }}" class="input-field input-lg" placeholder="e.g. Gujarat, Maharashtra">
                     </div>
                     <div class="input-group">
                         <label class="label">Country <span class="text-red-500">*</span></label>
                         <input type="text" name="country" value="{{ old('country', $event->country) }}" class="input-field input-lg" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Contact Phone</label>
+                        <input type="tel" name="contact_no" value="{{ old('contact_no', $event->contact_no) }}" class="input-field input-lg" placeholder="e.g. +91 98765 43210">
                     </div>
                     <div class="input-group">
                         <label class="label">Website URL</label>
@@ -171,16 +175,33 @@
                     <h3 class="text-lg font-bold text-gray-900">Media & Branding</h3>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="input-group">
-                        <label class="label">Logo</label>
-                        <input type="file" name="logo" class="input-field" accept="image/jpeg,image/png,image/webp">
-                        <p class="input-hint">JPEG, PNG or WebP. Max 2MB. Leave empty to keep current.</p>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="input-group">
+                            <label class="label">Cover Image</label>
+                            @if($event->cover_image_url)
+                                <div class="mb-2">
+                                    <img src="{{ $event->cover_image_url }}" class="w-40 h-24 rounded-lg object-cover border border-gray-200">
+                                </div>
+                            @endif
+                            <input type="file" name="cover_image" class="input-field" accept="image/jpeg,image/png,image/webp">
+                            <p class="input-hint">JPEG, PNG or WebP. Max 2MB. Recommended: 1200x600px.</p>
+                        </div>
+                        <div class="input-group">
+                            <label class="label">Event Logo</label>
+                            @if($event->logo_url)
+                                <div class="mb-2">
+                                    <img src="{{ $event->logo_url }}" class="w-20 h-20 rounded-lg object-cover border border-gray-200">
+                                </div>
+                            @endif
+                            <input type="file" name="logo" class="input-field" accept="image/jpeg,image/png,image/webp">
+                            <p class="input-hint">JPEG, PNG or WebP. Max 2MB. Recommended: 500x500px.</p>
+                        </div>
                     </div>
+
                     <div class="input-group">
-                        <label class="label">Cover Image</label>
-                        <input type="file" name="cover_image" class="input-field" accept="image/jpeg,image/png,image/webp">
-                        <p class="input-hint">JPEG, PNG or WebP. Max 2MB. Leave empty to keep current.</p>
+                        <label class="label">YouTube Video URL</label>
+                        <input type="url" name="video_url" value="{{ old('video_url', $event->video_url) }}" class="input-field input-lg" placeholder="https://youtube.com/watch?v=...">
                     </div>
                 </div>
             </div>

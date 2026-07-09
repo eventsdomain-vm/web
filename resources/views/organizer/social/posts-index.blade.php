@@ -16,9 +16,17 @@
                         <p class="text-sm text-gray-500">Manage and track your social media posts.</p>
                     </div>
                 </div>
-                <a href="{{ route($rp . '.dashboard') }}" class="text-sm text-gray-500 hover:text-gray-700 transition">
-                    ← Back to Dashboard
-                </a>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route($rp . '.dashboard') }}" class="text-sm text-gray-500 hover:text-gray-700 transition">
+                        ← Back to Dashboard
+                    </a>
+                    <button onclick="openAICreateModal()" class="btn-primary inline-flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Create with AI
+                    </button>
+                </div>
             </div>
 
             @if(session('success'))

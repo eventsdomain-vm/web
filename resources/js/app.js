@@ -7,10 +7,9 @@ Alpine.plugin(collapse);
 
 window.Alpine = Alpine;
 
-Alpine.data('wizard', () => ({
-    steps: ['Basic Info', 'Dates', 'Venues', 'Sponsorship', 'Packages', 'Audience', 'Media', 'Participants', 'Plan', 'Review'],
+Alpine.data('eventForm', () => ({
+    steps: ['Details', 'Schedule', 'Sponsorship', 'Review'],
     currentStep: 0,
-    completedSteps: [],
     eventId: null,
     saving: false,
     draftSaved: false,
@@ -25,29 +24,31 @@ Alpine.data('wizard', () => ({
         event_type: '',
         start_date: '',
         end_date: '',
-        website_url: '',
-        registration_deadline: '',
         expected_audience: '',
+        tags: '',
+        sponsorship_type: '',
         budget_min: '',
         budget_max: '',
-        sponsorship_type: '',
-        tags: '',
-        audience_description: '',
+        sponsor_levels: [],
         video_url: '',
         plan: 'basic',
-        sponsor_levels: [],
         audience_age_groups: [],
         audience_gender: [],
         audience_income: [],
         audience_industries: [],
         audience_reach: '',
+        audience_description: '',
         dates: [],
         venues: [],
         participants: [],
+        same_time_all: false,
+        common_start_time: '',
+        common_end_time: '',
+        common_timezone: 'Asia/Kolkata',
+        common_all_day: false,
     },
 
     packages: [],
-
     files: { logo: null, cover_image: null, banner_image: null },
     previews: { logo: null, cover_image: null, banner_image: null },
     errors: {},
@@ -64,7 +65,7 @@ Alpine.data('wizard', () => ({
         const levels = this.form.sponsor_levels || [];
         const idx = levels.indexOf(level);
         if (idx === -1) { levels.push(level); } else { levels.splice(idx, 1); }
-        this.form.sponsor_levels = levels;
+        this.form.sponsor_levels = [...levels];
         this.autosave();
     },
 
@@ -75,7 +76,6 @@ Alpine.data('wizard', () => ({
         const reader = new FileReader();
         reader.onload = (e) => { this.previews[key] = e.target.result; };
         reader.readAsDataURL(file);
-        this.errors[key] = null;
     },
 
     validateStep(step) {
@@ -95,13 +95,8 @@ Alpine.data('wizard', () => ({
             this.form.dates.forEach((dt, i) => {
                 if (!dt.start_date) e['dates.' + i + '.start_date'] = 'Start date is required for session ' + (i + 1);
             });
-        } else if (step === 2) {
             if (this.form.venues.length === 0) e.venues = 'Add at least one venue.';
         } else if (step === 3) {
-            if (!this.form.expected_audience) e.expected_audience = 'Expected audience is required.';
-        } else if (step === 5) {
-            if (this.form.audience_age_groups.length === 0) e.audience_age_groups = 'Select at least one age group.';
-        } else if (step === 8) {
             if (!this.form.plan) e.plan = 'Please select a plan.';
         }
         this.errors = e;
@@ -110,9 +105,6 @@ Alpine.data('wizard', () => ({
 
     nextStep() {
         if (this.validateStep(this.currentStep)) {
-            if (!this.completedSteps.includes(this.currentStep)) {
-                this.completedSteps.push(this.currentStep);
-            }
             this.currentStep = Math.min(this.currentStep + 1, this.steps.length - 1);
         }
     },
@@ -122,20 +114,12 @@ Alpine.data('wizard', () => ({
     },
 
     goTo(step) {
-        if (step <= this.currentStep) {
-            this.currentStep = step;
-            return;
-        }
+        if (step <= this.currentStep) { this.currentStep = step; return; }
         let valid = true;
         for (let i = this.currentStep; i < step; i++) {
             if (!this.validateStep(i)) { valid = false; break; }
         }
-        if (valid) {
-            for (let i = this.currentStep; i < step; i++) {
-                if (!this.completedSteps.includes(i)) this.completedSteps.push(i);
-            }
-            this.currentStep = step;
-        }
+        if (valid) this.currentStep = step;
     },
 
     addDate() {
@@ -145,11 +129,26 @@ Alpine.data('wizard', () => ({
         });
     },
 
+    removeDate(idx) {
+        this.form.dates.splice(idx, 1);
+        this.form.dates.forEach((dt, i) => dt.sort_order = i);
+    },
+
+    toggleSameTime() {
+        if (this.form.same_time_all && this.form.dates.length > 0) {
+            const first = this.form.dates[0];
+            this.form.common_start_time = first.start_time || '';
+            this.form.common_end_time = first.end_time || '';
+            this.form.common_timezone = first.timezone || 'Asia/Kolkata';
+            this.form.common_all_day = first.all_day || false;
+        }
+    },
+
     addVenue() {
         this.form.venues.push({
             venue_type: 'physical', venue_name: '', address: '', city: '', state: '',
-            country: 'India', postal_code: '', latitude: '', longitude: '',
-            virtual_url: '', virtual_platform: '', is_primary: this.form.venues.length === 0, sort_order: this.form.venues.length,
+            country: 'India', virtual_url: '', virtual_platform: '',
+            is_primary: this.form.venues.length === 0, sort_order: this.form.venues.length,
         });
     },
 
@@ -161,62 +160,93 @@ Alpine.data('wizard', () => ({
     },
 
     addPackage() {
-        this.packages.push({
-            name: '', price: 0, description: '', benefits_text: '', slots_available: 1,
-        });
-        this.$nextTick(() => {
-            const container = this.$refs.packagesContainer;
-            if (container) container.scrollTop = container.scrollHeight;
-        });
+        this.packages.push({ name: '', price: 0, description: '', benefits_text: '', slots_available: 1 });
     },
 
     removePackage(idx) {
         this.packages.splice(idx, 1);
     },
 
-    autosave() {
-        if (this.saving) return;
+    formatDate(dateStr) {
+        if (!dateStr) return '';
+        const d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    },
+
+    buildFormData() {
         const payload = new FormData();
         payload.append('_token', document.querySelector('input[name="_token"]').value);
         if (this.eventId) payload.append('event_id', this.eventId);
 
-        for (const [key, val] of Object.entries(this.form)) {
-            if (Array.isArray(val)) {
-                if (key === 'dates' || key === 'venues' || key === 'participants') {
-                    val.forEach((item, i) => {
-                        for (const [k, v] of Object.entries(item)) {
-                            if (v !== null && v !== undefined && v !== '') {
-                                payload.append(key + '[' + i + '][' + k + ']', v);
-                            }
-                        }
-                    });
-                } else {
-                    val.forEach(v => payload.append(key + '[]', v));
-                }
-            } else if (val !== null && val !== undefined && val !== '') {
-                payload.append(key, val);
+        const scalarFields = ['title', 'tagline', 'description', 'category_id', 'event_type',
+            'start_date', 'end_date', 'expected_audience', 'tags', 'sponsorship_type',
+            'budget_min', 'budget_max', 'video_url', 'plan',
+            'audience_description', 'audience_reach'];
+        scalarFields.forEach(f => {
+            if (this.form[f] !== null && this.form[f] !== undefined && this.form[f] !== '') {
+                payload.append(f, this.form[f]);
             }
-        }
+        });
 
-        if (this.packages.length > 0) {
-            this.packages.forEach((pkg, i) => {
-                if (pkg.name) {
-                    payload.append('packages[' + i + '][name]', pkg.name);
-                    if (pkg.price) payload.append('packages[' + i + '][price]', pkg.price);
-                    if (pkg.description) payload.append('packages[' + i + '][description]', pkg.description);
-                    if (pkg.benefits_text) payload.append('packages[' + i + '][benefits]', pkg.benefits_text);
-                    if (pkg.slots_available) payload.append('packages[' + i + '][slots_available]', pkg.slots_available);
+        ['audience_age_groups', 'audience_gender', 'audience_income', 'audience_industries', 'sponsor_levels'].forEach(key => {
+            const arr = this.form[key] || [];
+            arr.forEach(v => payload.append(key + '[]', v));
+        });
+
+        this.form.dates.forEach((dt, i) => {
+            Object.entries(dt).forEach(([k, v]) => {
+                if (v !== null && v !== undefined && v !== '') {
+                    payload.append('dates[' + i + '][' + k + ']', v);
                 }
             });
-        }
+            if (this.form.same_time_all) {
+                payload.append('dates[' + i + '][start_time]', this.form.common_start_time);
+                payload.append('dates[' + i + '][end_time]', this.form.common_end_time);
+                payload.append('dates[' + i + '][timezone]', this.form.common_timezone);
+                payload.append('dates[' + i + '][all_day]', this.form.common_all_day);
+            }
+        });
 
-        for (const [key, file] of Object.entries(this.files)) {
+        this.form.venues.forEach((v, i) => {
+            Object.entries(v).forEach(([k, val]) => {
+                if (val !== null && val !== undefined && val !== '') {
+                    payload.append('venues[' + i + '][' + k + ']', val);
+                }
+            });
+        });
+
+        this.form.participants.forEach((p, i) => {
+            Object.entries(p).forEach(([k, v]) => {
+                if (v !== null && v !== undefined && v !== '') {
+                    payload.append('participants[' + i + '][' + k + ']', v);
+                }
+            });
+        });
+
+        this.packages.forEach((pkg, i) => {
+            if (pkg.name) {
+                payload.append('packages[' + i + '][name]', pkg.name);
+                if (pkg.price) payload.append('packages[' + i + '][price]', pkg.price);
+                if (pkg.description) payload.append('packages[' + i + '][description]', pkg.description);
+                if (pkg.benefits_text) payload.append('packages[' + i + '][benefits]', pkg.benefits_text);
+                if (pkg.slots_available) payload.append('packages[' + i + '][slots_available]', pkg.slots_available);
+            }
+        });
+
+        Object.entries(this.files).forEach(([key, file]) => {
             if (file) payload.append(key, file);
-        }
+        });
 
+        return payload;
+    },
+
+    autosave() {
+        if (this.saving) return;
         this.saving = true;
         fetch('/organizer/events/save-draft', {
-            method: 'POST', body: payload, headers: { 'Accept': 'application/json' }
+            method: 'POST',
+            body: this.buildFormData(),
+            headers: { 'Accept': 'application/json' }
         })
         .then(r => r.json())
         .then(data => {
@@ -227,7 +257,13 @@ Alpine.data('wizard', () => ({
     },
 
     saveToLocalStorage() {
-        try { localStorage.setItem('event_draft', JSON.stringify({ form: this.form, packages: this.packages, eventId: this.eventId })); } catch (e) {}
+        try {
+            localStorage.setItem('event_draft', JSON.stringify({
+                form: this.form,
+                packages: this.packages,
+                eventId: this.eventId,
+            }));
+        } catch (e) {}
     },
 
     restoreDraft() {
@@ -252,9 +288,8 @@ Alpine.data('wizard', () => ({
                 const d = data.data;
                 this.eventId = d.id;
                 const fields = ['title','tagline','description','category_id','event_type','start_date','end_date',
-                    'website_url','registration_deadline','expected_audience','budget_min','budget_max',
-                    'sponsorship_type','tags','audience_description','video_url','plan',
-                    'audience_age_groups','audience_gender','audience_income','audience_industries','audience_reach'];
+                    'expected_audience','budget_min','budget_max','sponsorship_type','tags',
+                    'video_url','plan','audience_description','audience_reach'];
                 fields.forEach(f => { if (d[f] !== null && d[f] !== undefined) this.form[f] = d[f]; });
                 if (d.sponsor_levels) this.form.sponsor_levels = d.sponsor_levels;
                 if (d.packages) this.packages = d.packages.map(p => ({
@@ -283,33 +318,56 @@ Alpine.data('wizard', () => ({
         this.draftSaved = false;
         for (const key in this.form) {
             if (Array.isArray(this.form[key])) {
-                this.form[key] = key === 'dates' ? [] : (key === 'venues' ? [] : (key === 'participants' ? [] : []));
+                this.form[key] = [];
             } else {
                 this.form[key] = '';
             }
         }
-        this.form.country = 'India';
         this.form.plan = 'basic';
+        this.form.same_time_all = false;
+        this.form.common_start_time = '';
+        this.form.common_end_time = '';
+        this.form.common_timezone = 'Asia/Kolkata';
+        this.form.common_all_day = false;
         this.packages = [];
         this.files = { logo: null, cover_image: null, banner_image: null };
         this.previews = { logo: null, cover_image: null, banner_image: null };
         this.errors = {};
-        this.completedSteps = [];
         this.addDate();
         this.addVenue();
     },
 
     submit() {
         if (this.submitting) return;
-        this.validateStep(8);
         if (!this.validateStep(0)) { this.currentStep = 0; return; }
         if (!this.validateStep(1)) { this.currentStep = 1; return; }
-        if (this.form.dates.length === 0) { this.errors = { dates: 'Add at least one date.' }; this.currentStep = 1; return; }
-        if (this.form.venues.length === 0) { this.errors = { venues: 'Add at least one venue.' }; this.currentStep = 2; return; }
-        if (Object.keys(this.errors).length > 0) { this.currentStep = 8; return; }
+        if (!this.validateStep(3)) { this.currentStep = 3; return; }
         this.submitting = true;
         localStorage.removeItem('event_draft');
-        this.$el.submit();
+
+        const payload = this.buildFormData();
+        fetch('/organizer/events', {
+            method: 'POST',
+            body: payload,
+            headers: { 'Accept': 'text/html, application/xhtml+xml' }
+        })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (response.ok) {
+                window.location.href = '/organizer/events';
+            } else {
+                return response.text().then(text => {
+                    const match = text.match(/<title>(.*?)<\/title>/i);
+                    this.errors = { submit: 'Submission failed. Please check all fields.' };
+                    this.submitting = false;
+                });
+            }
+        })
+        .catch(() => {
+            this.errors = { submit: 'Network error. Please try again.' };
+            this.submitting = false;
+        });
     }
 }));
 

@@ -18,7 +18,7 @@ class ReportController extends Controller
 
         $events = Event::where('organizer_id', $userId);
         $totalEvents = (clone $events)->count();
-        $publishedEvents = (clone $events)->where('status', 'published')->count();
+        $publishedEvents = (clone $events)->where('status', 'approved')->count();
         $draftEvents = (clone $events)->where('status', 'draft')->count();
 
         $contracts = SponsorshipContract::whereIn('event_id', Event::where('organizer_id', $userId)->pluck('id'));

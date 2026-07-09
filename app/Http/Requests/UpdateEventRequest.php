@@ -28,6 +28,8 @@ class UpdateEventRequest extends FormRequest
             'state' => 'nullable|string|max:100',
             'country' => 'nullable|string|max:100',
             'website_url' => 'nullable|url|max:500',
+            'contact_no' => 'nullable|string|max:30',
+            'contact_email' => 'nullable|email|max:255',
             'registration_deadline' => 'nullable|date',
             'expected_audience' => 'nullable|integer|min:1',
             'budget_min' => 'nullable|numeric|min:0',

@@ -18,7 +18,7 @@ class PostEventController extends Controller
             ->paginate(20);
 
         $events = Event::where('organizer_id', Auth::id())
-            ->where('status', 'published')
+            ->where('status', 'approved')
             ->where('end_date', '<', now())
             ->orderByDesc('end_date')
             ->get();

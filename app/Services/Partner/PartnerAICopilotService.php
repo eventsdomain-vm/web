@@ -13,7 +13,7 @@ class PartnerAICopilotService
     public function opportunityRecommendations(int $partnerId, int $limit = 5): array
     {
         $recommendations = Event::with('category', 'organizer')
-            ->where('status', 'published')
+            ->where('status', 'approved')
             ->where('start_date', '>', now())
             ->limit(50)
             ->get()

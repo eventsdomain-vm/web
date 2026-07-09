@@ -11,8 +11,6 @@ use App\Models\Event;
 use App\Models\SponsorshipPackage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-
 class AdminSitemapController extends Controller
 {
     public function index(): View
@@ -22,17 +20,31 @@ class AdminSitemapController extends Controller
         return view('admin.seo.sitemap', compact('sitemapPaths'));
     }
 
-    public function generate(): StreamedResponse
+    public function generate()
     {
-        $xml = $this->generateSitemapXml();
+        return response()->stream(function () {
+            $paths = $this->getSitemapPaths();
+            $today = now()->format('Y-m-d');
 
-        return response($xml, 200, [
+            echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+            echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+            foreach ($paths as $path) {
+                echo '    <url>' . "\n";
+                echo '        <loc>' . htmlspecialchars($path) . '</loc>' . "\n";
+                echo '        <lastmod>' . $today . '</lastmod>' . "\n";
+                echo '        <priority>0.8</priority>' . "\n";
+                echo '    </url>' . "\n";
+            }
+
+            echo '</urlset>' . "\n";
+        }, 200, [
             'Content-Type' => 'application/xml',
             'Cache-Control' => 'no-cache',
         ]);
     }
 
-    public function download(): StreamedResponse
+    public function download()
     {
         return $this->generate();
     }
@@ -49,7 +61,7 @@ class AdminSitemapController extends Controller
         }
 
         $events = Event::whereNotNull('slug')
-            ->where('status', 'published')
+            ->where('status', 'approved')
             ->where('approval_status', 'approved')
             ->get(['slug']);
 
@@ -83,25 +95,5 @@ class AdminSitemapController extends Controller
         return $paths;
     }
 
-    private function generateSitemapXml(): string
-    {
-        $paths = $this->getSitemapPaths();
 
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-
-        $today = now()->format('Y-m-d');
-
-        foreach ($paths as $path) {
-            $xml .= '    <url>\n';
-            $xml .= '        <loc>'.$path.'</loc>\n';
-            $xml .= '        <lastmod>'.$today.'</lastmod>\n';
-            $xml .= '        <priority>0.8</priority>\n';
-            $xml .= '    </url>\n';
-        }
-
-        $xml .= '</urlset>\n';
-
-        return $xml;
-    }
 }

@@ -30,6 +30,8 @@ final class EventUpdateData
         public readonly ?string $currency,
         public readonly ?string $websiteUrl,
         public readonly ?string $videoUrl,
+        public readonly ?string $contactNo,
+        public readonly ?string $contactEmail,
         public readonly ?array $tags,
     ) {}
 
@@ -69,6 +71,8 @@ final class EventUpdateData
             currency: $data['currency'] ?? null,
             websiteUrl: $data['website_url'] ?? null,
             videoUrl: $data['video_url'] ?? null,
+            contactNo: $data['contact_no'] ?? null,
+            contactEmail: $data['contact_email'] ?? null,
             tags: $tags,
         );
     }
@@ -98,6 +102,8 @@ final class EventUpdateData
             'currency' => $this->currency,
             'website_url' => $this->websiteUrl,
             'video_url' => $this->videoUrl,
+            'contact_no' => $this->contactNo,
+            'contact_email' => $this->contactEmail,
             'tags' => $this->tags,
         ], fn ($v) => $v !== null);
 

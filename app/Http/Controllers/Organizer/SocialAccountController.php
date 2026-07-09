@@ -67,10 +67,7 @@ class SocialAccountController extends Controller
 
         $this->loadSocialConfig();
 
-        $scopes = $this->getScopes($provider);
-
         return Socialite::driver($provider)
-            ->scopes($scopes)
             ->redirect();
     }
 
@@ -81,19 +78,41 @@ class SocialAccountController extends Controller
         $this->loadSocialConfig();
 
         try {
+            // Check for error from LinkedIn
+            if ($request = request()->query('error')) {
+                $desc = request()->query('error_description', 'Unknown error');
+                Log::error("LinkedIn OAuth error: {$request} - {$desc}");
+                $rp = auth()->user()->hasRole('partner') ? 'partner' : 'organizer';
+                return redirect()->route($rp.'.social.index')
+                    ->with('error', 'LinkedIn denied access: ' . $desc);
+            }
+
             $socialUser = Socialite::driver($provider)->user();
 
             $user = auth()->user();
+
+            $providerId = $socialUser->getId();
+            $name = $socialUser->getName() ?? $socialUser->getNickname() ?? $provider.' user';
+            $email = $socialUser->getEmail();
+
+            // For LinkedIn OpenID Connect, fallback to extra details if needed
+            if ($provider === 'linkedin' && empty($email)) {
+                $email = $socialUser->getRaw()['email'] ?? null;
+            }
+            if ($provider === 'linkedin' && $name === $provider.' user') {
+                $raw = $socialUser->getRaw();
+                $name = trim(($raw['given_name'] ?? '').' '.($raw['family_name'] ?? '')) ?: $name;
+            }
 
             SocialAccount::updateOrCreate(
                 [
                     'user_id' => $user->id,
                     'provider' => $provider,
-                    'provider_id' => $socialUser->getId(),
+                    'provider_id' => $providerId,
                 ],
                 [
-                    'name' => $socialUser->getName() ?? $socialUser->getNickname() ?? $provider.' user',
-                    'email' => $socialUser->getEmail(),
+                    'name' => $name,
+                    'email' => $email,
                     'avatar' => $socialUser->getAvatar(),
                     'access_token' => $socialUser->token,
                     'refresh_token' => $socialUser->refreshToken,
@@ -108,7 +127,9 @@ class SocialAccountController extends Controller
             return redirect()->route($rp.'.social.index')
                 ->with('success', ucfirst($provider).' account connected successfully.');
         } catch (\Exception $e) {
-            Log::error("Social connect failed for provider [{$provider}]: ".$e->getMessage());
+            Log::error("Social connect failed for provider [{$provider}]: ".$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+            ]);
 
             $rp = auth()->user()->hasRole('partner') ? 'partner' : 'organizer';
 
@@ -158,9 +179,10 @@ class SocialAccountController extends Controller
                 'instagram_manage_insights',
             ],
             'linkedin' => [
+                'openid',
+                'profile',
+                'email',
                 'w_member_social',
-                'r_liteprofile',
-                'r_emailaddress',
             ],
             'google' => [
                 'https://www.googleapis.com/auth/youtube.upload',

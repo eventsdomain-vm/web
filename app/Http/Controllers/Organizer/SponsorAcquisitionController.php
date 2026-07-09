@@ -14,7 +14,7 @@ class SponsorAcquisitionController extends Controller
     public function index()
     {
         $events = Event::where('organizer_id', Auth::id())
-            ->where('status', 'published')
+            ->where('status', 'approved')
             ->withCount(['sponsorshipRequests', 'sponsorshipRequests as pending_requests_count' => function ($q) {
                 $q->where('status', 'pending');
             }])

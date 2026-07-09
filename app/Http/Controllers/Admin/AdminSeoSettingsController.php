@@ -51,6 +51,7 @@ class AdminSeoSettingsController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'global' => 'required|array',
             'global.site_name' => 'nullable|string|max:255',
             'global.site_tagline' => 'nullable|string|max:500',
             'global.meta_description' => 'nullable|string|max:500',
@@ -68,13 +69,12 @@ class AdminSeoSettingsController extends Controller
             'global.yandex_verification_code' => 'nullable|string|max:255',
         ]);
 
-        foreach ($validated as $key => $value) {
-            $group = explode('.', $key)[0];
-            $settingKey = explode('.', $key)[1];
+        $group = $validated['global'] ?? [];
 
+        foreach ($group as $key => $value) {
             PlatformSetting::updateOrCreate(
-                ['key' => $settingKey],
-                ['value' => $value, 'type' => 'string', 'group' => $group]
+                ['key' => $key],
+                ['value' => $value, 'type' => 'string', 'group' => 'global']
             );
         }
 
