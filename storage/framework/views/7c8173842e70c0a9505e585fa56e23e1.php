@@ -1,9 +1,18 @@
-<x-app-layout>
-    <x-slot name="title">Social Posts - EventsDomain</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\AppLayout::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('title', null, []); ?> Social Posts - EventsDomain <?php $__env->endSlot(); ?>
 
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            {{-- Header --}}
+            
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="bg-gradient-to-r from-terracotta-500 to-orange-500 p-2.5 rounded-lg">
@@ -17,7 +26,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <a href="{{ route($rp . '.dashboard') }}" class="text-sm text-gray-500 hover:text-gray-700 transition">
+                    <a href="<?php echo e(route($rp . '.dashboard')); ?>" class="text-sm text-gray-500 hover:text-gray-700 transition">
                         ← Back to Dashboard
                     </a>
                     <button onclick="openAICreateModal()" class="btn-primary inline-flex items-center gap-2">
@@ -29,15 +38,16 @@
                 </div>
             </div>
 
-            @if(session('success'))
+            <?php if(session('success')): ?>
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-emerald-700 text-sm font-medium">
-                    {{ session('success') }}
-                </div>
-            @endif
+                    <?php echo e(session('success')); ?>
 
-            {{-- Posts Table --}}
+                </div>
+            <?php endif; ?>
+
+            
             <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                @if($posts->count())
+                <?php if($posts->count()): ?>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm">
                             <thead>
@@ -51,27 +61,27 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
-                                @foreach($posts as $post)
-                                    <tr class="hover:bg-gray-50/50 transition cursor-pointer" onclick="window.location='{{ route($rp . '.posts.show', $post) }}'">
+                                <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr class="hover:bg-gray-50/50 transition cursor-pointer" onclick="window.location='<?php echo e(route($rp . '.posts.show', $post)); ?>'">
                                         <td class="px-6 py-4">
                                             <div class="flex items-center gap-3">
-                                                @if($post->event->cover_image)
-                                                    <img src="{{ $post->event->cover_image }}" alt="" class="w-10 h-10 rounded-lg object-cover">
-                                                @else
+                                                <?php if($post->event->cover_image): ?>
+                                                    <img src="<?php echo e($post->event->cover_image); ?>" alt="" class="w-10 h-10 rounded-lg object-cover">
+                                                <?php else: ?>
                                                     <div class="w-10 h-10 rounded-lg bg-terracotta-100 flex items-center justify-center">
                                                         <svg class="w-5 h-5 text-terracotta-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
                                                 <div class="min-w-0">
-                                                    <p class="font-medium text-gray-900 truncate">{{ $post->event->title ?? 'Deleted Event' }}</p>
-                                                    <p class="text-xs text-gray-400 truncate">Post #{{ $post->id }}</p>
+                                                    <p class="font-medium text-gray-900 truncate"><?php echo e($post->event->title ?? 'Deleted Event'); ?></p>
+                                                    <p class="text-xs text-gray-400 truncate">Post #<?php echo e($post->id); ?></p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4">
                                             <div class="flex flex-wrap gap-1">
-                                                @foreach($post->platforms as $platform)
-                                                    @php
+                                                <?php $__currentLoopData = $post->platforms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $platform): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php
                                                         $colors = [
                                                             'facebook' => ['#1877F2', 'bg-blue-100 text-blue-700'],
                                                             'linkedin' => ['#0A66C2', 'bg-sky-100 text-sky-700'],
@@ -79,15 +89,16 @@
                                                             'youtube' => ['#FF0000', 'bg-red-100 text-red-700'],
                                                         ];
                                                         [$color, $badgeClass] = $colors[$platform] ?? ['#6B7280', 'bg-gray-100 text-gray-700'];
-                                                    @endphp
-                                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium {{ $badgeClass }}">
-                                                        {{ ucfirst($platform) }}
+                                                    ?>
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium <?php echo e($badgeClass); ?>">
+                                                        <?php echo e(ucfirst($platform)); ?>
+
                                                     </span>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4">
-                                            @php
+                                            <?php
                                                 $statusStyles = [
                                                     'draft' => 'bg-gray-100 text-gray-700',
                                                     'scheduled' => 'bg-blue-100 text-blue-700',
@@ -96,36 +107,40 @@
                                                     'partial' => 'bg-orange-100 text-orange-700',
                                                     'failed' => 'bg-red-100 text-red-700',
                                                 ];
-                                            @endphp
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusStyles[$post->status] ?? 'bg-gray-100 text-gray-700' }}">
-                                                {{ $post->status_label }}
+                                            ?>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php echo e($statusStyles[$post->status] ?? 'bg-gray-100 text-gray-700'); ?>">
+                                                <?php echo e($post->status_label); ?>
+
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 text-gray-500">
-                                            {{ $post->scheduled_at ? $post->scheduled_at->format('M d, Y g:i A') : '—' }}
+                                            <?php echo e($post->scheduled_at ? $post->scheduled_at->format('M d, Y g:i A') : '—'); ?>
+
                                         </td>
                                         <td class="px-6 py-4 text-gray-500">
-                                            {{ $post->created_at->format('M d, Y') }}
+                                            <?php echo e($post->created_at->format('M d, Y')); ?>
+
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <a href="{{ route($rp . '.posts.show', $post) }}" class="text-terracotta-500 hover:text-terracotta-600 font-medium text-sm">
+                                            <a href="<?php echo e(route($rp . '.posts.show', $post)); ?>" class="text-terracotta-500 hover:text-terracotta-600 font-medium text-sm">
                                                 View
                                             </a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
 
-                    {{-- Pagination --}}
-                    @if($posts->hasPages())
+                    
+                    <?php if($posts->hasPages()): ?>
                         <div class="px-6 py-4 border-t border-gray-100">
-                            {{ $posts->links() }}
+                            <?php echo e($posts->links()); ?>
+
                         </div>
-                    @endif
-                @else
-                    {{-- Empty State --}}
+                    <?php endif; ?>
+                <?php else: ?>
+                    
                     <div class="text-center py-16">
                         <svg class="w-16 h-16 text-gray-200 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
@@ -134,16 +149,16 @@
                         <p class="text-sm text-gray-500 max-w-sm mx-auto">
                             Create your first social post from an event page to start sharing across platforms.
                         </p>
-                        <a href="{{ route($rp . '.dashboard') }}" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-terracotta-500 text-white text-sm font-medium rounded-lg hover:bg-terracotta-600 transition">
+                        <a href="<?php echo e(route($rp . '.dashboard')); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-terracotta-500 text-white text-sm font-medium rounded-lg hover:bg-terracotta-600 transition">
                             Go to Dashboard
                         </a>
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
-    {{-- AI Create Modal --}}
+    
     <div id="aiCreateModal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/40" onclick="closeAICreateModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
@@ -157,7 +172,7 @@
                     </div>
                 </div>
                 <form id="aiCreateForm" class="p-6 space-y-4" onsubmit="submitAICreate(event)">
-                    <input type="hidden" name="event_id" id="ai_event_id" value="{{ $posts->first()?->event_id ?? '' }}">
+                    <input type="hidden" name="event_id" id="ai_event_id" value="<?php echo e($posts->first()?->event_id ?? ''); ?>">
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Topic / Headline *</label>
@@ -200,7 +215,7 @@
                                class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta-500 focus:border-terracotta-500">
                     </div>
 
-                    {{-- Preview --}}
+                    
                     <div id="aiPreviewBox" class="hidden">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Preview</label>
                         <div id="aiPreview" class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 whitespace-pre-wrap max-h-60 overflow-y-auto"></div>
@@ -264,7 +279,7 @@
             try {
                 const resp = await fetch(`/organizer/events/${eventId}/posts/ai/generate`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>' },
                     body: JSON.stringify({
                         topic,
                         key_points: keyPoints,
@@ -308,7 +323,7 @@
             try {
                 const resp = await fetch(`/organizer/events/${eventId}/posts/ai/auto-schedule`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>' },
                     body: JSON.stringify({
                         platforms: ['linkedin'],
                         content: { linkedin: { text: generatedContent } },
@@ -332,4 +347,14 @@
             }
         }
     </script>
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\vm\events-domain\resources\views/organizer/social/posts-index.blade.php ENDPATH**/ ?>

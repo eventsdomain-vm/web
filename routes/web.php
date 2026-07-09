@@ -59,6 +59,7 @@ use App\Http\Controllers\Organizer\ProfileController as OrganizerProfileControll
 use App\Http\Controllers\Organizer\RenewalController as OrganizerRenewalController;
 use App\Http\Controllers\Organizer\ReportController as OrganizerReportController;
 use App\Http\Controllers\Organizer\SocialAccountController;
+use App\Http\Controllers\Organizer\SocialPostAIController;
 use App\Http\Controllers\Organizer\SocialPostController;
 use App\Http\Controllers\Organizer\SponsorAcquisitionController as OrganizerAcquisitionController;
 use App\Http\Controllers\Organizer\SponsorController as OrganizerSponsorController;

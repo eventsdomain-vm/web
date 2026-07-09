@@ -67,8 +67,15 @@ class SocialAccountController extends Controller
 
         $this->loadSocialConfig();
 
-        return Socialite::driver($provider)
-            ->redirect();
+        $scopes = $this->getScopes($provider);
+
+        $driver = Socialite::driver($provider);
+
+        if (! empty($scopes)) {
+            $driver->scopes($scopes);
+        }
+
+        return $driver->redirect();
     }
 
     public function callback(string $provider): RedirectResponse
@@ -171,9 +178,10 @@ class SocialAccountController extends Controller
     {
         return match ($provider) {
             'facebook' => [
+                'email',
                 'pages_show_list',
-                'pages_manage_posts',
                 'pages_read_engagement',
+                'pages_manage_posts',
                 'instagram_basic',
                 'instagram_content_publish',
                 'instagram_manage_insights',
