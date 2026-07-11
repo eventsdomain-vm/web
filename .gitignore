@@ -1,0 +1,16 @@
+/unwanted
+/composer
+/node_modules
+/vendor
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+/public/hot
+/public/storage
+/storage/*.key
+Homestead.json
+Homestead.yaml
