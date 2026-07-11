@@ -1,0 +1,1319 @@
+{
+  "source": "sponsorshipsearch.com",
+  "scrape_date": "2026-06-30",
+  "metadata": {
+    "site_name": "EventsDomain",
+    "tagline": "India's premier B2B marketplace bridging the gap between event organizers seeking sponsorship and brands looking for impactful partnerships.",
+    "platform_type": "The B2B marketplace where organizers meet sponsors and partners to build something remarkable.",
+    "managed_by": "Ajooba Infotech",
+    "office_address": "Ahmedabad, Gujarat 380009",
+    "email": "hello@eventsdomain.com",
+    "phone": "+91 9725098250",
+    "location": "Ahmedabad, Gujarat India",
+    "site_stats": {
+      "total_events_listed_upcoming": 16,
+      "total_events_listed_past": 60,
+      "total_events_all": 76,
+      "sponsors_connected": "1000+",
+      "cities_covered": "50+",
+      "happy_organizers": "2500+",
+      "categories_count": 10,
+      "enquiries_sent_displayed": "0+ (placeholder in counter)",
+      "sponsorship_value_connected": "₹2Cr+",
+      "organizer_satisfaction": "95%",
+      "average_approval_time": "48hrs"
+    },
+    "categories": [
+      { "name": "Sports", "slug": "sports", "category_id": "1338bb9f-7f77-4dee-86a7-e43907701218", "event_count": null },
+      { "name": "Music & Entertainment", "slug": "music-entertainment", "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1", "event_count": null },
+      { "name": "Technology", "slug": "technology", "category_id": "88db6b27-9160-49eb-ab3d-a9b07dd2657f", "event_count": null },
+      { "name": "Business & Corporate", "slug": "business-corporate", "category_id": "ee470716-cecd-433a-a15f-dcb1cf3d09ce", "event_count": null },
+      { "name": "Education", "slug": "education", "category_id": "feb9d2b5-66a1-433e-bd5d-51101b4bbb24", "event_count": null },
+      { "name": "Health & Wellness", "slug": "health-wellness", "category_id": "17dc0eef-35fc-4691-9f54-3a9f38c7bebc", "event_count": null },
+      { "name": "Arts & Culture", "slug": "arts-culture", "category_id": "c66ba435-de05-41c9-905f-bb772b5bc7c0", "event_count": null },
+      { "name": "Food & Beverage", "slug": "food-beverage", "category_id": "74a56c30-f8e2-43b1-b8e7-c7e7c0383ad1", "event_count": null },
+      { "name": "Fashion", "slug": "fashion", "category_id": "69742cd8-f7c8-4080-a297-d1a380b8fe33", "event_count": null },
+      { "name": "Charity & Non-Profit", "slug": "charity-non-profit", "category_id": "9af4f6a4-0196-4fe8-9874-1ad37ba6eb3f", "event_count": null }
+    ],
+    "budget_ranges": [
+      "Under ₹1 Lakh",
+      "₹1-5 Lakhs",
+      "₹5-10 Lakhs",
+      "₹10-25 Lakhs",
+      "₹25-50 Lakhs",
+      "₹50 Lakhs+"
+    ],
+    "sponsorship_types": [
+      "Paid Sponsorship",
+      "Barter/In-Kind",
+      "Paid + Barter"
+    ]
+  },
+  "pricing": {
+    "plans": [
+      {
+        "name": "Basic",
+        "price_usd": 19,
+        "price_inr": null,
+        "valid_for": "1 event",
+        "payment_type": "one-time",
+        "features": [
+          "Event Listing",
+          "Valid for 1 Event",
+          "Email Enquiries",
+          "Mobile Optimized",
+          "Category Placement",
+          "Basic Analytics"
+        ]
+      },
+      {
+        "name": "Featured (Popular)",
+        "price_usd": 39,
+        "price_inr": null,
+        "valid_for": "1 event",
+        "payment_type": "one-time",
+        "features": [
+          "Event Listing",
+          "Valid for 1 Event",
+          "Email Enquiries",
+          "Mobile Optimized",
+          "Category Placement",
+          "Basic Analytics",
+          "Featured Badge",
+          "Priority in Search",
+          "Advanced Analytics",
+          "Social Share Boost",
+          "Email Support"
+        ]
+      },
+      {
+        "name": "Homepage",
+        "price_usd": 59,
+        "price_inr": null,
+        "valid_for": "1 event",
+        "payment_type": "one-time",
+        "features": [
+          "Event Listing",
+          "Valid for 1 Event",
+          "Email Enquiries",
+          "Mobile Optimized",
+          "Category Placement",
+          "Basic Analytics",
+          "Featured Badge",
+          "Priority in Search",
+          "Advanced Analytics",
+          "Social Share Boost",
+          "Email Support",
+          "Homepage Display",
+          "Top Priority Placement",
+          "Detailed Analytics Dashboard",
+          "Priority Support",
+          "Social Media Promotion",
+          "Video Showcase"
+        ]
+      }
+    ],
+    "enterprise": {
+      "description": "Free listing by appointing SponsorshipSearch as exclusive sponsorship partner; pay only when results delivered",
+      "contact": "partnerships@sponsorshipsearch.com"
+    },
+    "promo_banner": "Basic Listing FREE Until May 31, 2026"
+  },
+  "events": [
+    {
+      "title": "A Soulful Kirtan Concert at ISKCON NOIDA Auditorium",
+      "event_id": "1781788895759",
+      "slug": "a-soulful-kirtan-concert-at-iskcon-noida-auditorium-1781788895759",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "An interactive evening of soulful kirtan, uplifting bhajans, and mantra meditation, brought to life through the energy of live musicians and collective participation. More than a concert, this is an immersive and transformative experience designed to help you reconnect with peace, purpose, and inner joy.",
+      "city": "Noida",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "venue": "ISKCON NOIDA Auditorium",
+      "venue_address": "ISKCON Temple, Govinda Dham and Bhaktivedanta Academy A-5, Maharaja Agrasen Marg, Opposite NTPC Office, Block A, Sector 33 Noida",
+      "start_date": "2026-08-02",
+      "end_date": "2026-08-02",
+      "start_time": "16:00",
+      "end_time": "08:00",
+      "expected_audience": 600,
+      "budget_min": 0,
+      "budget_max": 100000,
+      "budget_range_display": "Under ₹1 Lakh",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {
+          "level": "Co-Sponsor",
+          "budget_range": "Under ₹1 Lakh",
+          "slots_total": 4,
+          "slots_filled": 0,
+          "slots_available": 4
+        }
+      ],
+      "event_type": "In-person",
+      "tags": ["kirtan", "bhajans", "meditation", "spiritual", "music"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e4c18fe-97c2-4443-9d4a-b1304cd6efd6/1781788896320-0.jpeg"
+      ],
+      "views": 859,
+      "featured": false,
+      "trending": true,
+      "has_video": false,
+      "audience": {
+        "types": ["Working Professionals", "Business Owners", "Corporate Executives", "Startups & Founders", "Families", "Kids & Teens", "Artists & Creators", "General Public", "Developers / Techies"],
+        "age_groups": ["25-34"],
+        "gender": "Mixed / Not specific",
+        "income_level": "Upper-middle income",
+        "interests": ["Art & Culture"],
+        "geographic_reach": "Local (City)",
+        "summary": "Target audience is Corporate Professionals, IT Professionals, Business Owners, Entrepreneurs, Spiritual Seekers, Families."
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Game of titans",
+      "event_id": "1781597702676",
+      "slug": "game-of-titans-1781597702676",
+      "category": "Sports",
+      "category_id": "1338bb9f-7f77-4dee-86a7-e43907701218",
+      "description": "GAME OF TITANS is India's biggest obstacle race and fitness championship, bringing together athletes, fitness enthusiasts, corporate teams, and fitness communities from across the country. The event celebrates strength, endurance, determination, and the spirit of competition through a large-scale sporting and entertainment experience.",
+      "city": "Thane",
+      "state": "Maharashtra",
+      "country": "India",
+      "venue": "Kharghar- Navi Mumbai",
+      "venue_address": null,
+      "start_date": "2026-08-29",
+      "end_date": "2026-08-29",
+      "start_time": "06:00",
+      "end_time": "17:00",
+      "expected_audience": 1500,
+      "budget_min": 5000000,
+      "budget_max": null,
+      "budget_range_display": "₹50 Lakhs+",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {
+          "level": "Title Sponsor",
+          "budget_range": "₹25-50 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Co-Sponsor",
+          "budget_range": "₹10-25 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Associate Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Powered By Sponsor",
+          "budget_range": "₹10-25 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Media Partner",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        }
+      ],
+      "advertising_spaces": [
+        {
+          "type": "Physical Branding",
+          "details": ["Entry gate branding", "Standee placements", "Seat branding", "Table branding", "Floor branding", "Photo booth branding"],
+          "availability": 1,
+          "pricing": "Contact for pricing"
+        },
+        {
+          "type": "Digital Advertising",
+          "details": ["LED screen ads", "Live stream overlay branding", "Registration desk screens"],
+          "availability": 1,
+          "pricing": "Contact for pricing"
+        }
+      ],
+      "content_addons": {
+        "type": "Content & Media Add-ons",
+        "availability": 5,
+        "items": ["Interview with organizer", "Brand-featured reel/video", "Interview with brand representative", "Photo coverage with brand watermark", "Inclusion in post-event highlight video"],
+        "pricing": "Contact for pricing"
+      },
+      "event_type": "In-person",
+      "tags": ["obstacle race", "fitness", "championship", "sports", "endurance"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/5f80ae3a-1f32-470a-9f18-738102bf47b0/1781597703309-0.png"
+      ],
+      "views": 962,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "College Youth", "Working Professionals", "Corporate Executives", "Fitness Enthusiasts", "Startups & Founders", "General Public", "Investors"],
+        "age_groups": ["Below 18", "18-24", "25-34", "35-44", "45-54"],
+        "gender": "Mixed / Not specific",
+        "interests": ["Entertainment & Media", "Health & Fitness", "Travel & Tourism", "Food & Beverages", "Gaming & Esports", "Sports", "Fashion & Lifestyle", "Finance"],
+        "geographic_reach": "National"
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Bhakthi Jathara",
+      "event_id": "1781431833696",
+      "slug": "bhakthi-jathara-1781431833696",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "Its a bhajan clubbing, with renowned singers and artists. Chinmayi sripada, Tanikella Bharani, and so many artists will perform. And also dance performances. Vibing with techno and electronic bhakthi songs. Event will be on 26th July from 5pm onwards.",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "venue": "Gachibowli Indoor stadium",
+      "venue_address": "Gachibowli indoor stadium, old mumbai highway, Hyderabad, Telangana",
+      "start_date": "2026-07-26",
+      "end_date": "2026-07-26",
+      "start_time": "17:00",
+      "end_time": "22:00",
+      "expected_audience": 5000,
+      "budget_min": 2500000,
+      "budget_max": 5000000,
+      "budget_range_display": "₹25-50 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {
+          "level": "Title Sponsor",
+          "budget_range": "₹10-25 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Co-Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 2,
+          "slots_filled": 0,
+          "slots_available": 2
+        },
+        {
+          "level": "Associate Sponsor",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 3,
+          "slots_filled": 0,
+          "slots_available": 3
+        },
+        {
+          "level": "Powered By Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Media Partner",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Other",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Venue partner",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        }
+      ],
+      "food_partnerships": [
+        {
+          "type": "Food Stall Partner",
+          "exclusive": true,
+          "slots_total": 1,
+          "pricing": "₹100,000"
+        }
+      ],
+      "advertising_spaces": [
+        {
+          "type": "Physical Branding",
+          "details": ["Entry gate branding", "Standee placements", "Table branding", "Floor branding"],
+          "availability": 1,
+          "pricing": "₹300,000"
+        },
+        {
+          "type": "Digital Advertising",
+          "details": ["LED screen ads", "Registration desk screens", "Live stream overlay branding"],
+          "availability": 1,
+          "pricing": "₹300,000"
+        }
+      ],
+      "content_addons": {
+        "type": "Content & Media Add-ons",
+        "availability": 5,
+        "items": ["Interview with organizer", "Brand-featured reel/video", "Inclusion in post-event highlight video"],
+        "pricing": "₹300,000"
+      },
+      "event_type": "In-person",
+      "tags": ["bhajan", "kirtan", "spiritual", "music", "dance", "religious"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/e851e022-04fb-4415-b1e3-7d2b107c4742/1781431834217-1.jpeg"
+      ],
+      "views": 2335,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "College Youth", "Working Professionals", "Business Owners", "Startups & Founders", "Corporate Executives", "General Public", "Kids & Teens", "Artists & Creators", "Families", "Fitness Enthusiasts", "Developers / Techies", "Investors", "Homemakers"],
+        "age_groups": ["Below 18", "18-24", "25-34", "55+", "35-44", "45-54"],
+        "gender": "Mixed / Not specific",
+        "income_level": "Upper-middle income",
+        "interests": ["Education", "Technology", "Finance", "Health & Fitness", "Entertainment & Media", "Sports", "Social Causes", "Fashion & Lifestyle", "Art & Culture"],
+        "geographic_reach": "Local (City)",
+        "summary": "All age groups"
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "TRINETRA",
+      "event_id": "1779370200882",
+      "slug": "trinetra-1779370200882",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "Inspired by the spirit of Bengal's grandest celebration, Durga Puja, MAKAUT launches its Autumn Fest TRINETRA 2026. Designed as a two-day immersive experience, TRINETRA brings together high-energy performances, competitions, cultural showcases, live entertainment, interactive experiences, and youth-driven creativity.",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "country": "India",
+      "venue": "Maulana Abul Kalam Azad University of Technology",
+      "venue_address": "NH-12 (Old NH-34), P.O. - Simhat, Police Station – Haringhata, District - Nadia, PIN - 741249, West Bengal",
+      "start_date": "2026-09-24",
+      "end_date": "2026-09-25",
+      "start_time": "09:00",
+      "end_time": "23:00",
+      "expected_audience": 6000,
+      "budget_min": 2500000,
+      "budget_max": 5000000,
+      "budget_range_display": "₹25-50 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {
+          "level": "Title Sponsor",
+          "budget_range": "₹10-25 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Co-Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 4,
+          "slots_filled": 0,
+          "slots_available": 4
+        },
+        {
+          "level": "Associate Sponsor",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 4,
+          "slots_filled": 0,
+          "slots_available": 4
+        },
+        {
+          "level": "Powered By Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 2,
+          "slots_filled": 0,
+          "slots_available": 2
+        },
+        {
+          "level": "Media Partner",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 2,
+          "slots_filled": 0,
+          "slots_available": 2
+        },
+        {
+          "level": "Other",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Beverage Partner",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        }
+      ],
+      "exhibition_stalls": [
+        {
+          "type": "Exhibition Stall",
+          "details": "Large (15x15 ft), Main Arena",
+          "slots_total": 6,
+          "pricing": "₹25,000"
+        }
+      ],
+      "food_partnerships": [
+        {
+          "type": "Food Stall Partner",
+          "exclusive": true,
+          "slots_total": 1,
+          "pricing": "₹20,000"
+        }
+      ],
+      "advertising_spaces": [
+        {
+          "type": "Physical Branding",
+          "details": ["Entry gate branding", "Standee placements", "Seat branding", "Photo booth branding", "Floor branding", "Table branding"],
+          "availability": 1,
+          "pricing": "₹200,000"
+        },
+        {
+          "type": "Digital Advertising",
+          "details": ["LED screen ads", "Live stream overlay branding", "Registration desk screens"],
+          "availability": 1,
+          "pricing": "₹100,000"
+        }
+      ],
+      "content_addons": {
+        "type": "Content & Media Add-ons",
+        "availability": 5,
+        "items": ["Interview with organizer", "Brand-featured reel/video", "Inclusion in post-event highlight video", "Interview with brand representative", "Photo coverage with brand watermark"],
+        "pricing": "₹20,000"
+      },
+      "event_type": "In-person",
+      "tags": ["college fest", "cultural", "music", "dance", "youth", "Durga Puja", "Bengal"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202674-0.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202687-1.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202688-2.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202688-3.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202689-4.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202690-5.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202690-6.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202691-7.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/08dfea79-4bba-42f1-899e-e58bb6fb88e0/1779370202691-8.jpg"
+      ],
+      "views": 9492,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "Startups & Founders", "Fitness Enthusiasts", "Homemakers", "College Youth", "Corporate Executives", "Artists & Creators", "General Public", "Working Professionals", "Families", "Developers / Techies", "Business Owners", "Kids & Teens", "Investors"],
+        "age_groups": ["18-24", "25-34", "35-44", "45-54", "55+"],
+        "gender": "Balanced",
+        "income_level": "High income / Premium audience",
+        "interests": ["Technology", "Fashion & Lifestyle", "Sports", "Art & Culture", "Finance", "Food & Beverages", "Gaming & Esports", "Education", "Travel & Tourism", "Sustainability / ESG", "Health & Fitness", "Entertainment & Media", "Social Causes"],
+        "geographic_reach": "National",
+        "summary": "TRINETRA 2026 targets youth-centric audience driven by culture, entertainment, creativity, and digital engagement."
+      },
+      "organizer": {
+        "name": "MAKAUT (Maulana Abul Kalam Azad University of Technology)",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Eventifye Dance League 2026 - EDL 2026",
+      "event_id": "1779104044228",
+      "slug": "eventifye-dance-league-2026-edl-2026-1779104044228",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "Eventifye Dance League 2026 (EDL 2026) is a premium multi-city dance championship and YouTube reality series organized by Eventifye Entertainment, designed to discover and showcase emerging dance talent.",
+      "city": "Kanpur",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "venue": "Lajpat Bhawan, Kanpur Nagar",
+      "venue_address": "Moti Jheel Avenue, Swaroop Nagar, Kanpur-208002, Uttar Pradesh",
+      "start_date": "2026-07-26",
+      "end_date": "2026-08-07",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 3000,
+      "budget_min": null,
+      "budget_max": null,
+      "budget_range_display": null,
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid + Barter",
+      "sponsorship_tiers": [
+        {
+          "level": "Title Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 2,
+          "slots_filled": 1,
+          "slots_available": 1
+        },
+        {
+          "level": "Co-Sponsor",
+          "budget_range": "₹5-10 Lakhs",
+          "slots_total": 2,
+          "slots_filled": 1,
+          "slots_available": 1
+        },
+        {
+          "level": "Associate Sponsor",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": 3,
+          "slots_filled": 2,
+          "slots_available": 1
+        },
+        {
+          "level": "Powered By Sponsor",
+          "budget_range": "Under ₹1 Lakh",
+          "slots_total": 3,
+          "slots_filled": 1,
+          "slots_available": 2
+        },
+        {
+          "level": "Media Partner",
+          "budget_range": "Under ₹1 Lakh",
+          "slots_total": 2,
+          "slots_filled": 1,
+          "slots_available": 1
+        },
+        {
+          "level": "Other",
+          "slots_total": 1,
+          "slots_filled": null,
+          "slots_available": 1
+        },
+        {
+          "level": "Travel Partner",
+          "budget_range": "₹1-5 Lakhs",
+          "slots_total": null,
+          "slots_filled": null,
+          "slots_available": 0
+        }
+      ],
+      "confirmed_sponsors": [
+        { "name": "EaseMyTrip", "role": "Travel Partner" }
+      ],
+      "sponsorship_benefits": [
+        "Logo on event creatives", "Logo on website", "Logo on banners & standees", "Logo on stage backdrop",
+        "Logo on entry gate", "Logo on LED screens", "Logo on merchandise", "On-stage brand mention",
+        "Emcee brand mention", "Dedicated speaking slot", "Award presentation opportunity", "Brand video playback",
+        "Social media shoutouts", "Dedicated social post", "Emailer mention", "WhatsApp broadcast mention",
+        "Post-event thank-you post", "Website backlink", "Product sampling", "Giveaway distribution",
+        "Contest sponsorship", "QR-based promotion", "Data capture opportunity"
+      ],
+      "food_partnerships": [
+        { "type": "Beverage Partner", "exclusive": true, "slots_total": 1, "pricing": "₹15,000" },
+        { "type": "Snacks Partner", "slots_total": 2, "pricing": "₹24,999" }
+      ],
+      "advertising_spaces": [
+        {
+          "type": "Digital Advertising",
+          "details": ["LED screen ads", "Registration desk screens", "Live stream overlay branding"],
+          "availability": 1,
+          "pricing": "Contact for pricing"
+        },
+        {
+          "type": "Physical Branding",
+          "details": ["Table branding", "Seat branding", "Floor branding", "Standee placements", "Photo booth branding", "Entry gate branding"],
+          "availability": 1,
+          "pricing": "Contact for pricing"
+        }
+      ],
+      "event_type": "In-person (Multi-city)",
+      "tags": ["dance", "championship", "youtube series", "reality show", "youth"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/51ee3169-99c6-4ff1-ba33-c7f754b837fe/1779104044714-0.png"
+      ],
+      "views": 8025,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["College Youth", "Students", "Families", "Fitness Enthusiasts", "Kids & Teens", "Artists & Creators", "Business Owners", "Working Professionals"],
+        "age_groups": ["18-24", "25-34", "Below 18"],
+        "gender": "Mixed / Not specific",
+        "income_level": "Upper-middle income",
+        "interests": ["Health & Fitness", "Fashion & Lifestyle", "Entertainment & Media", "Art & Culture", "Technology", "Travel & Tourism", "Education", "Food & Beverages"],
+        "geographic_reach": "International"
+      },
+      "organizer": {
+        "name": "Eventifye Entertainment",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Ignite 2.0",
+      "event_id": "1778185926428",
+      "slug": "ignite-20-1778185926428",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "Create a hyper-realistic cinematic college fest scene named IGNITE 2.0 at Meridian Nursing and Paramedical College, Varanasi.",
+      "city": "Varanasi",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "venue": "College Ground",
+      "venue_address": "Meridian Nursing and paramedical college, Varanasi (Ground Campus)",
+      "start_date": "2026-10-05",
+      "end_date": "2026-10-06",
+      "start_time": "13:00",
+      "end_time": "21:00",
+      "expected_audience": 2000,
+      "budget_min": 500000,
+      "budget_max": 1000000,
+      "budget_range_display": "₹5-10 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid + Barter",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 2, "slots_filled": 0, "slots_available": 2},
+        {"level": "Associate Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 3, "slots_filled": 0, "slots_available": 3},
+        {"level": "Powered By Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 4, "slots_filled": 0, "slots_available": 4},
+        {"level": "Media Partner", "budget_range": "Under ₹1 Lakh", "slots_total": 2, "slots_filled": 0, "slots_available": 2},
+        {"level": "Other", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Hygiene Partner", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Learning partner", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "event_type": "In-person",
+      "tags": ["college fest", "nursing college", "youth", "music", "entertainment"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/02f51b9d-2f73-41c3-a2df-610dfb94743d/1778185927052-0.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/02f51b9d-2f73-41c3-a2df-610dfb94743d/1778185927060-1.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/02f51b9d-2f73-41c3-a2df-610dfb94743d/1778185927061-2.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/02f51b9d-2f73-41c3-a2df-610dfb94743d/1778185927061-3.png"
+      ],
+      "views": 18751,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "College Youth", "Working Professionals", "Business Owners", "Homemakers"],
+        "age_groups": ["18-24", "25-34"],
+        "gender": "Female-dominant",
+        "income_level": "Entry-level / Students",
+        "interests": ["Finance", "Technology", "Education", "Health & Fitness", "Fashion & Lifestyle", "Food & Beverages", "Entertainment & Media"],
+        "geographic_reach": "Local (City)"
+      },
+      "organizer": {
+        "name": "Meridian Nursing and Paramedical College",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Cardio carnival",
+      "event_id": "1778158388519",
+      "slug": "cardio-carnival-1778158388519",
+      "category": "Health & Wellness",
+      "category_id": "17dc0eef-35fc-4691-9f54-3a9f38c7bebc",
+      "description": "Cardio Carnival is a fitness and entertainment festival designed for the new generation. It brings together fitness, music, wellness, sports, creators, brands, and communities under one platform.",
+      "city": "Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "venue": "JLN Stadium",
+      "venue_address": "New Delhi",
+      "start_date": "2026-09-26",
+      "end_date": "2026-09-27",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 16000,
+      "budget_min": null,
+      "budget_max": null,
+      "budget_range_display": null,
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹25-50 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "₹10-25 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Associate Sponsor", "budget_range": "₹5-10 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Powered By Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Media Partner", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "exhibition_stalls": [
+        {"type": "Brand Experience Booth", "details": "Medium (10x10 ft), Near Stage", "slots_total": 1, "pricing": "₹40,000"},
+        {"type": "Brand Experience Booth", "details": "Medium (10x10 ft), Food Zone", "slots_total": 18, "pricing": "₹30,000"},
+        {"type": "Exhibition Stall", "details": "Small (6x6 ft), Outdoor Area", "slots_total": 15, "pricing": "₹20,000"}
+      ],
+      "food_partnerships": [
+        {"type": "Food Stall Partner", "slots_total": 15, "pricing": "₹30,000"}
+      ],
+      "advertising_spaces": [
+        {"type": "Physical Branding", "details": ["Entry gate branding", "Photo booth branding", "Standee placements", "Floor branding", "Seat branding", "Table branding"], "availability": 1, "pricing": "₹300,000"},
+        {"type": "Digital Advertising", "details": ["LED screen ads", "Registration desk screens", "Live stream overlay branding"], "availability": 1, "pricing": "₹200,000"}
+      ],
+      "content_addons": {
+        "type": "Content & Media Add-ons",
+        "availability": 1,
+        "items": ["Interview with organizer", "Interview with brand representative", "Brand-featured reel/video", "Photo coverage with brand watermark", "Inclusion in post-event highlight video"],
+        "pricing": "₹40,000"
+      },
+      "event_type": "In-person",
+      "tags": ["fitness", "wellness", "music", "festival", "sports", "health"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309272452-0.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309277977-1.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309281764-3.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309282914-4.jpg",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309284456-5.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309287912-6.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/7e32aad2-0daf-4389-a684-11a836b009d8/1778309291510-7.jpg"
+      ],
+      "views": 14082,
+      "featured": false,
+      "trending": false,
+      "has_video": true,
+      "audience": {
+        "types": ["Students", "College Youth", "Business Owners", "Startups & Founders", "Fitness Enthusiasts", "General Public", "Artists & Creators", "Working Professionals", "Corporate Executives"],
+        "age_groups": ["18-24", "25-34", "35-44", "Below 18"],
+        "gender": "Male-dominant",
+        "income_level": "Upper-middle income",
+        "interests": ["Health & Fitness", "Food & Beverages", "Entertainment & Media", "Sports", "Fashion & Lifestyle"],
+        "geographic_reach": "Regional (State)"
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "LAST NIGHT FRAPPE INDIA TOUR",
+      "event_id": "1778003027426",
+      "slug": "last-night-frappe-india-tour-1778003027426",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "Late Night Frappe Tour 2026 - a multi-city India tour celebrating the release of Frappe Ash's new album. Spanning 10 major cities, targeting culturally active urban audiences and college demographics.",
+      "city": "Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "venue": "NEW DELHI",
+      "venue_address": "HAUZ KHAS VILLAGE NEW DELHI",
+      "start_date": "2026-06-14",
+      "end_date": "2026-08-14",
+      "start_time": "16:00",
+      "end_time": "22:00",
+      "expected_audience": 3000,
+      "budget_min": 100000,
+      "budget_max": 500000,
+      "budget_range_display": "₹1-5 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid + Barter",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Associate Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Powered By Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Media Partner", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "event_type": "In-person (Multi-city tour)",
+      "tour_cities": ["Delhi", "Mumbai", "Pune", "Bangalore", "Lucknow", "Dehradun", "Jaipur", "Chandigarh", "Gurgaon", "Hyderabad"],
+      "tags": ["music tour", "Frappe Ash", "independent music", "live concert", "youth"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/0b242cd2-5c5e-49dc-b20c-a493848d7fcc/1778003027940-0.png",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/0b242cd2-5c5e-49dc-b20c-a493848d7fcc/1778003027942-1.JPG",
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/0b242cd2-5c5e-49dc-b20c-a493848d7fcc/1778003027942-2.JPG"
+      ],
+      "views": 18271,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "College Youth", "Artists & Creators", "Kids & Teens"],
+        "age_groups": ["18-24"],
+        "gender": "Mixed / Not specific",
+        "income_level": "Upper-middle income",
+        "interests": ["Fashion & Lifestyle", "Food & Beverages", "Gaming & Esports", "Art & Culture", "Entertainment & Media"],
+        "geographic_reach": "National"
+      },
+      "organizer": {
+        "name": "NO MARK MGMT",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "TELHUNT STAGE INDIA OPEN MIC TOUR",
+      "event_id": "1777664770486",
+      "slug": "telhunt-stage-india-open-mic-tour-1777664770486",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "TELHUNT STAGE INDIA TOUR 2026 - India's Youth Open Mic & Creator Discovery Tour across 10 cities. Features stand-up comedians, poets, musicians, storytellers, and campus creators.",
+      "city": "Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "venue": "NEW DELHI",
+      "venue_address": "HAUZ KHAS VILLAGE NEW DELHI",
+      "start_date": "2026-07-01",
+      "end_date": "2026-12-31",
+      "start_time": "16:00",
+      "end_time": "22:00",
+      "expected_audience": 2000,
+      "budget_min": 100000,
+      "budget_max": 500000,
+      "budget_range_display": "₹1-5 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid + Barter",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 3, "slots_filled": 0, "slots_available": 3},
+        {"level": "Associate Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Powered By Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Media Partner", "budget_range": "Under ₹1 Lakh", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "event_type": "In-person (Multi-city tour)",
+      "tour_cities": ["Mumbai", "Delhi", "Gurgaon", "Noida", "Bengaluru", "Jaipur", "Lucknow", "Indore", "Pune", "Kolkata"],
+      "tags": ["open mic", "comedy", "poetry", "music", "storytelling", "youth", "creator economy"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/d65eb6b1-fff7-457f-866e-2045eadcb051/1777664771004-0.png"
+      ],
+      "views": 21811,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "College Youth", "Working Professionals", "Kids & Teens", "Artists & Creators", "General Public"],
+        "age_groups": ["18-24", "Below 18"],
+        "gender": "Mixed / Not specific",
+        "income_level": "Middle income",
+        "interests": ["Fashion & Lifestyle", "Art & Culture", "Food & Beverages", "Education", "Entertainment & Media", "Technology", "Gaming & Esports"],
+        "geographic_reach": "National"
+      },
+      "organizer": {
+        "name": "Telhunt Stage / NO MARK MGMT",
+        "contact_email": "nxtwavemediaxnomark@gmail.com",
+        "contact_phone": "+91 6388542074"
+      }
+    },
+    {
+      "title": "SARGAM: National Level Intercollege Cultural Fest",
+      "event_id": "1777270634827",
+      "slug": "sargam-national-level-intercollege-cultural-fest-1777270634827",
+      "category": "Arts & Culture",
+      "category_id": "c66ba435-de05-41c9-905f-bb772b5bc7c0",
+      "description": "National Level Inter-College Cultural Fest at New Horizon College of Engineering with 20,000+ participants and attendees from across the country.",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "venue": "New Horizon College of Engineering",
+      "venue_address": "near Marathahalli, Kaverappa Layout, Kadubeesanahalli, Bellandur, Bengaluru, Karnataka 560103",
+      "start_date": "2026-11-21",
+      "end_date": "2026-11-22",
+      "start_time": "09:00",
+      "end_time": "23:00",
+      "expected_audience": 25000,
+      "budget_min": 1000000,
+      "budget_max": 2500000,
+      "budget_range_display": "₹10-25 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹10-25 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "₹5-10 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Other", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Diamond Sponsor", "budget_range": "₹5-10 Lakhs", "slots_total": 2, "slots_filled": 0, "slots_available": 2},
+        {"level": "Platinum Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 2, "slots_filled": 0, "slots_available": 2},
+        {"level": "Gold Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 2, "slots_filled": 0, "slots_available": 2},
+        {"level": "Silver Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 3, "slots_filled": 0, "slots_available": 3},
+        {"level": "Event Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 10, "slots_filled": 0, "slots_available": 10},
+        {"level": "Co - Event Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 10, "slots_filled": 0, "slots_available": 10}
+      ],
+      "exhibition_stalls": [
+        {"type": "Exhibition Stall", "details": "Medium (10x10 ft), Main Arena", "slots_total": 50, "pricing": "₹24,999"}
+      ],
+      "food_partnerships": [
+        {"type": "Food Stall Partner", "slots_total": 1, "pricing": "₹25,000"}
+      ],
+      "advertising_spaces": [
+        {"type": "Physical Branding", "details": ["Standee placements", "Entry gate branding", "Seat branding", "Table branding", "Floor branding", "Photo booth branding"], "availability": 1, "pricing": "₹99,999"},
+        {"type": "Digital Advertising", "details": ["Live stream overlay branding", "LED screen ads", "Registration desk screens"], "availability": 1, "pricing": "₹99,999"}
+      ],
+      "content_addons": {
+        "type": "Content & Media Add-ons",
+        "availability": 5,
+        "items": ["Interview with organizer", "Brand-featured reel/video", "Inclusion in post-event highlight video", "Photo coverage with brand watermark", "Interview with brand representative"],
+        "pricing": "₹100,000"
+      },
+      "event_type": "In-person",
+      "tags": ["college fest", "cultural", "national", "intercollege", "students"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/474fcc83-1d79-47d9-9e2b-8bcb8746fede/1777270635594-0.jpg"
+      ],
+      "views": 28019,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "Startups & Founders", "College Youth", "Corporate Executives", "Working Professionals", "Families", "Business Owners", "Kids & Teens", "Developers / Techies", "Artists & Creators"],
+        "age_groups": ["18-24", "25-34", "Below 18"],
+        "gender": "Mixed / Not specific",
+        "income_level": "High income / Premium audience",
+        "interests": ["Fashion & Lifestyle", "Art & Culture", "Food & Beverages", "Gaming & Esports", "Education", "Entertainment & Media", "Health & Fitness", "Sports", "Finance", "Travel & Tourism", "Sustainability / ESG", "Social Causes", "Technology"],
+        "geographic_reach": "National"
+      },
+      "organizer": {
+        "name": "New Horizon College of Engineering",
+        "contact": "Dr. Mukul Manohar (Sponsorship Coordinator In-Charge)",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Quest Fame Style Icon Jr 2026",
+      "event_id": "1776879375671",
+      "slug": "quest-fame-style-icon-jr-2026-1776879375671",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "A leading platform for kids' talent hunt for young stars, culminating in a grand finale featuring esteemed jury including Malaika Arora, Sandip Soparrkar, Tannaz Irani, Dr. Rita Gangwani, and Sangram Singh.",
+      "city": "Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "venue": "Open",
+      "venue_address": null,
+      "start_date": "2026-05-15",
+      "end_date": "2026-07-18",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 4000,
+      "budget_min": 500000,
+      "budget_max": 1000000,
+      "budget_range_display": "₹5-10 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Powered By Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Associate Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "event_type": "In-person",
+      "tags": ["talent hunt", "kids", "fashion", "celebrity jury", "Malaika Arora"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/2861cfa6-ede0-47a5-8572-6ad9dddb942b/1776879376233-0.jpeg"
+      ],
+      "views": 36345,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Families", "General Public", "Kids & Teens", "Students"],
+        "age_groups": ["Below 18"],
+        "gender": "Balanced",
+        "interests": ["Fashion & Lifestyle", "Art & Culture", "Health & Fitness", "Entertainment & Media"],
+        "geographic_reach": "Local (City)"
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "San Silvestre del Cabo",
+      "event_id": "1770237574879",
+      "slug": "san-silvestre-del-cabo-1770237574879",
+      "category": "Sports",
+      "category_id": "1338bb9f-7f77-4dee-86a7-e43907701218",
+      "description": "A New Year's Eve 5K run held at Marina Puerto Los Cabos. Inspired by the global San Silvestre tradition, blending sport, celebration, and community.",
+      "city": "Mexico City",
+      "state": null,
+      "country": "Mexico",
+      "venue": "Marina Puerto los Cabos",
+      "venue_address": "Blvd. Mar de Cortes s/n, 23403 San José del Cabo, B.C.S.",
+      "start_date": "2026-12-31",
+      "end_date": "2026-12-31",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 1000,
+      "budget_min": 5000000,
+      "budget_max": null,
+      "budget_range_display": "₹50 Lakhs+",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Associate Sponsor", "slots_total": 3, "slots_filled": 0, "slots_available": 3}
+      ],
+      "event_type": "In-person",
+      "tags": ["5K run", "New Year's Eve", "wellness", "sports", "Los Cabos", "Mexico"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/302cd737-3a69-4c32-987b-ce8161241a08/1770237623679-0.png"
+      ],
+      "views": 465541,
+      "featured": true,
+      "trending": false,
+      "has_video": true,
+      "audience": {
+        "types": ["Startups & Founders", "Fitness Enthusiasts", "Students", "Working Professionals", "Families", "Investors", "Business Owners"],
+        "age_groups": ["18-24", "25-34", "35-44", "Below 18"],
+        "gender": "Balanced",
+        "income_level": "High income / Premium audience",
+        "interests": ["Fashion & Lifestyle", "Finance", "Education", "Travel & Tourism", "Food & Beverages", "Sports", "Art & Culture", "Health & Fitness"],
+        "geographic_reach": "Local (City)"
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Podcast With Sneha karwat",
+      "event_id": "1769242658937",
+      "slug": "podcast-with-sneha-karwat-1769242658937",
+      "category": "Education",
+      "category_id": "feb9d2b5-66a1-433e-bd5d-51101b4bbb24",
+      "description": "The Sneha Karwat Show - a dynamic podcast platform diving deep into the minds of visionary founders, influential leaders, renowned actors, and celebrated comedians. Focus on Mindset, Leadership, and Business Transformation.",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "venue": "Shivoham Studio",
+      "venue_address": "Flat no 1, Bldg 35, Mit Niketan Road, Kanakia Sanskruti Phase 2, 90 ft Rd, Thakur complex, Kandivali E.",
+      "start_date": "2026-01-30",
+      "end_date": "2026-12-25",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 100000,
+      "budget_min": 100000,
+      "budget_max": 500000,
+      "budget_range_display": "₹1-5 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 2, "slots_filled": 0, "slots_available": 2},
+        {"level": "Associate Sponsor", "budget_range": "₹1-5 Lakhs", "slots_total": 5, "slots_filled": 0, "slots_available": 5},
+        {"level": "Powered By Sponsor", "budget_range": "Under ₹1 Lakh", "slots_total": 5, "slots_filled": 0, "slots_available": 5},
+        {"level": "Media Partner", "budget_range": "Under ₹1 Lakh", "slots_total": 5, "slots_filled": 0, "slots_available": 5},
+        {"level": "Other", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Gifting Partner", "budget_range": "Under ₹1 Lakh", "slots_total": 5, "slots_filled": 0, "slots_available": 5}
+      ],
+      "event_type": "Virtual / Podcast Series",
+      "tags": ["podcast", "mindset", "leadership", "business", "transformation", "interview"],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/e8510a21-40d6-4dfb-b0e2-5bd63f2e898b/1769496141350-0.png"
+      ],
+      "views": 573225,
+      "featured": true,
+      "trending": false,
+      "has_video": true,
+      "audience": {
+        "types": ["Students", "College Youth", "Working Professionals", "Business Owners", "Startups & Founders", "Corporate Executives", "Families", "Kids & Teens", "Fitness Enthusiasts", "Artists & Creators", "Developers / Techies", "Investors", "Homemakers", "General Public"],
+        "age_groups": ["18-24", "25-34", "35-44", "45-54", "55+"],
+        "gender": "Mixed / Not specific",
+        "income_level": "Middle income",
+        "interests": ["Education", "Technology", "Fashion & Lifestyle", "Sports", "Art & Culture", "Gaming & Esports", "Food & Beverages", "Finance", "Sustainability / ESG", "Travel & Tourism", "Health & Fitness", "Entertainment & Media", "Social Causes"],
+        "geographic_reach": "Local (City)"
+      },
+      "organizer": {
+        "name": "Sneha Karwat",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "music festival",
+      "event_id": "1771320217866",
+      "slug": "music-festival-1771320217866",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": "A 2-day lifestyle music & entertainment festival in Hyderabad featuring live music, comedy, stunts, food, gaming, and flea markets, attracting urban youth and young professionals (18-35).",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "venue": "hyderabad",
+      "venue_address": null,
+      "start_date": "2026-11-28",
+      "end_date": "2026-11-29",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 10000,
+      "budget_min": 5000000,
+      "budget_max": null,
+      "budget_range_display": "₹50 Lakhs+",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Powered By Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Media Partner", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Associate Sponsor", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "event_type": "In-person",
+      "tags": ["music festival", "lifestyle", "comedy", "food", "gaming", "flea market"],
+      "image_urls": [],
+      "views": 178274,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Students", "College Youth", "Startups & Founders", "Working Professionals", "Business Owners", "Families", "Investors", "General Public", "Artists & Creators", "Corporate Executives", "Homemakers"],
+        "age_groups": ["55+"],
+        "geographic_reach": "Local (City)"
+      },
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "Jai Madaan speaker event",
+      "event_id": "1774531771760",
+      "slug": "jai-madaan-speaker-event-1774531771760",
+      "category": "Health & Wellness",
+      "category_id": "17dc0eef-35fc-4691-9f54-3a9f38c7bebc",
+      "description": "An event with renowned motivational speaker Dr Jai Madaan to be held in Mumbai on Sunday 9 Aug 2026 by Rotary club of Mumbai Divas with over 600 people.",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "venue": "Mukesh Patel Auditorium JVPD MUMBAI",
+      "venue_address": "2nd road JVPD, Mumbai 400049",
+      "start_date": "2026-08-09",
+      "end_date": "2026-08-09",
+      "start_time": "10:00",
+      "end_time": "13:00",
+      "expected_audience": 600,
+      "budget_min": 1000000,
+      "budget_max": 2500000,
+      "budget_range_display": "₹10-25 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [
+        {"level": "Title Sponsor", "budget_range": "₹10-25 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1},
+        {"level": "Co-Sponsor", "budget_range": "₹5-10 Lakhs", "slots_total": 1, "slots_filled": null, "slots_available": 1}
+      ],
+      "event_type": "In-person",
+      "tags": ["motivational speaker", "Dr Jai Madaan", "Rotary club", "personal development"],
+      "image_urls": [],
+      "views": 44059,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": {
+        "types": ["Business Owners", "Corporate Executives", "Families", "Homemakers", "Working Professionals", "Developers / Techies"],
+        "age_groups": ["45-54", "55+"],
+        "gender": "Mixed / Not specific",
+        "income_level": "High income / Premium audience",
+        "interests": ["Technology", "Finance"],
+        "geographic_reach": "Local (City)",
+        "summary": "Established and elite businessmen and women living in and around upscale location of Juhu in Mumbai"
+      },
+      "organizer": {
+        "name": "Rotary Club of Mumbai Divas",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    },
+    {
+      "title": "KAMYAB ZINDAGI",
+      "event_id": "1779433259217",
+      "slug": "kamyab-zindagi-1779433259217",
+      "category": "Music & Entertainment",
+      "category_id": "a2f52357-95b2-4c69-a78c-83eb2b5331b1",
+      "description": null,
+      "city": "Rajkot",
+      "state": "Gujarat",
+      "country": "India",
+      "venue": null,
+      "venue_address": null,
+      "start_date": "2026-06-21",
+      "end_date": "2026-06-21",
+      "start_time": null,
+      "end_time": null,
+      "expected_audience": 2500,
+      "budget_min": 500000,
+      "budget_max": 1000000,
+      "budget_range_display": "₹5-10 Lakhs",
+      "budget_currency": "INR",
+      "sponsorship_type": "Paid Sponsorship",
+      "sponsorship_tiers": [],
+      "event_type": "In-person",
+      "tags": [],
+      "image_urls": [
+        "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/0fc30fc1-9cf9-4e6e-b159-5ce7011f41eb/1779433259815-0.jpg"
+      ],
+      "views": 9253,
+      "featured": false,
+      "trending": false,
+      "has_video": false,
+      "audience": null,
+      "organizer": {
+        "name": "Not publicly listed on page",
+        "contact_email": null,
+        "contact_phone": null
+      }
+    }
+  ],
+  "past_events_listing": [
+    { "title": "Neon Water War", "slug": "neon-water-war-1778592039549", "date": "2026-06-27", "city": "Hyderabad", "country": "India", "image_url": "https://ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/37c7929d-e2f7-4206-a319-f660ded4e0ad/1778592040942-0.png" },
+    { "title": "Global Direct Selling Growth Summit & Awards 2026", "slug": "global-direct-selling-impact-summit-2026-1768991524653", "date": "2026-06-19", "city": "Mumbai", "country": "India" },
+    { "title": "Basketball Tournament", "slug": "basketball-tournament-1778667213039", "date": "2026-06-14", "city": "Bangalore", "country": "India" },
+    { "title": "Job Utsav 2026", "slug": "job-utsav-2026-1780296535543", "date": "2026-06-13", "city": "Noida", "country": "India" },
+    { "title": "utsavam the celebration", "slug": "utsavam-the-celebration-1778849000171", "date": "2026-06-13", "city": "Nellore", "country": "India" },
+    { "title": "Make Some Ochha ft. Sithara Krishnakumar & Project Malabaricus in Bangalore", "slug": "make-some-ochha-ft-sithara-krishnakumar-project-malabaricus-in-bangalore-1777439791807", "date": "2026-05-31", "city": "Bangalore", "country": "India" },
+    { "title": "SMUN 2026", "slug": "smun-2026-1775370723526", "date": "2026-05-30", "city": "Kolkata", "country": "India" },
+    { "title": "INSIGHT 2026", "slug": "insight-2026-1778414009060", "date": "2026-05-29", "city": "Bangalore", "country": "India" },
+    { "title": "Fusion Frenzy", "slug": "fusion-e-1777719046400", "date": "2026-05-24", "city": "Nagpur", "country": "India" },
+    { "title": "The Green Trade Expo 2026", "slug": "the-green-trade-expo-2026-1773384221678", "date": "2026-05-23", "city": "Noida", "country": "India" },
+    { "title": "The Iconic Night", "slug": "the-iconic-night-1777528571182", "date": "2026-05-23", "city": "Chandigarh", "country": "India" },
+    { "title": "Game of Titans A fitness Competition", "slug": "game-of-titans-a-fitness-competition-1777281644606", "date": "2026-05-23", "city": "Mumbai", "country": "India" }
+  ],
+  "organizers": [
+    { "name": "MAKAUT (Maulana Abul Kalam Azad University of Technology)", "event_count": 1, "events": ["TRINETRA"] },
+    { "name": "Eventifye Entertainment", "event_count": 1, "events": ["Eventifye Dance League 2026 - EDL 2026"], "confirmed_sponsors": ["EaseMyTrip"] },
+    { "name": "NO MARK MGMT", "event_count": 2, "events": ["LAST NIGHT FRAPPE INDIA TOUR", "TELHUNT STAGE INDIA OPEN MIC TOUR"], "contact_email": "nxtwavemediaxnomark@gmail.com", "contact_phone": "+91 6388542074" },
+    { "name": "New Horizon College of Engineering", "event_count": 1, "events": ["SARGAM"], "contact": "Dr. Mukul Manohar (Sponsorship Coordinator In-Charge)" },
+    { "name": "Meridian Nursing and Paramedical College", "event_count": 1, "events": ["Ignite 2.0"] },
+    { "name": "Sneha Karwat", "event_count": 1, "events": ["Podcast With Sneha karwat"] },
+    { "name": "Rotary Club of Mumbai Divas", "event_count": 1, "events": ["Jai Madaan speaker event"] }
+  ],
+  "partners": {
+    "platform_operator": "Ajooba Infotech",
+    "featured_sponsor": "EaseMyTrip (confirmed sponsor for EDL 2026)",
+    "celebrity_associates": ["Malaika Arora", "Sandip Soparrkar", "Tannaz Irani", "Dr. Rita Gangwani", "Sangram Singh"]
+  },
+  "cities": [
+    "Noida", "Thane", "Hyderabad", "Rajkot", "Kolkata", "Kanpur", "Varanasi",
+    "Delhi", "Bangalore", "Mexico City", "Mumbai", "Chandigarh", "Nagpur",
+    "Nellore", "Pune", "Lucknow", "Dehradun", "Jaipur", "Gurgaon", "Indore"
+  ],
+  "blog": {
+    "url": "https://sponsorshipsearch.com/blog",
+    "categories": ["All Posts", "Case Studies", "Event Marketing", "Guides", "Industry News", "Sponsorship Tips"],
+    "posts": []
+  },
+  "notes": {
+    "not_found_events": [
+      "15-election-day-discount-for-voters-at-aurika-dine-bar-vasai-east-1768561404069 (404)",
+      "test-event-1768384590102 (404)",
+      "the-last-dance-1768563362675 (404)"
+    ],
+    "data_limitations": "Some event pages are client-side rendered (e.g., KAMYAB ZINDAGI showed 'Loading event...'), so full details for those events were extracted from listing cards only. Blog page showed no actual posts - likely loaded client-side.",
+    "image_storage": "All images hosted on Supabase storage: ukzuwrbhjolbwxqsqlnp.supabase.co/storage/v1/object/public/event-images/",
+    "total_scraped_events_with_detail": 15,
+    "total_past_events_listed": 60,
+    "total_upcoming_events_listed": 16
+  }
+}
