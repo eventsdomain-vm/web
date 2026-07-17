@@ -31,7 +31,7 @@
         'translate-x-0': isMobileOpen,
         '-translate-x-full lg:translate-x-0': !isMobileOpen,
     }"
-    class="fixed inset-y-0 left-0 z-40 flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ease-in-out overflow-hidden"
+    class="fixed inset-y-0 left-0 z-40 flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ease-in-out overflow-hidden" style="background-color:#ffffff;"
     @mouseenter="if (!isExpanded) isHovered = true"
     @mouseleave="isHovered = false"
 >
