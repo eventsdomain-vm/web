@@ -14,7 +14,7 @@
 
 <div
     x-data="{ showConfirm: false }"
-    class="mt-auto border-t border-gray-100 bg-white shrink-0" style="background-color:#ffffff;"
+    class="mt-auto border-t border-gray-100 bg-white shrink-0" style="background-color: #ffffff !important;"
 >
     {{-- User Info --}}
     <div class="px-4 pt-4 pb-2">

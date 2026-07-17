@@ -11,6 +11,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
     @include('partials.tracking-head')
     <style>[x-cloak]{display:none!important}</style>
+    <style>.sidebar,.app-sidebar,aside{background-color:#ffffff!important}</style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-gray-50/50">
