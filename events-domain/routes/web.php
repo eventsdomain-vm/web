@@ -135,6 +135,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/gst', [ProfileController::class, 'updateGst'])->name('profile.gst.update');
+    Route::get('/profile/gst/captcha', [GstCaptchaController::class, 'captcha'])->name('profile.gst.captcha');
+    Route::post('/profile/gst/verify-captcha', [GstCaptchaController::class, 'verify'])->name('profile.gst.verify-captcha');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Messaging Routes
