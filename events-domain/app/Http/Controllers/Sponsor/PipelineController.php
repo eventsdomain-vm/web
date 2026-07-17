@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\Sponsor;
 use App\Models\SponsorProposal;
+use App\Models\SponsorshipRequest;
 use Illuminate\View\View;
 
 class PipelineController extends Controller
@@ -18,18 +19,28 @@ class PipelineController extends Controller
         $userId = auth()->id();
         $sponsor = Sponsor::where('user_id', $userId)->first();
 
+        // Merge proposals and sponsorship requests
         $proposals = SponsorProposal::where('sponsor_id', $userId)
             ->with(['event', 'package'])
             ->latest()
-            ->get();
+            ->get()
+            ->each(fn($p) => $p->pipeline_type = 'proposal');
+
+        $requests = SponsorshipRequest::where('sponsor_id', $userId)
+            ->with(['event', 'package'])
+            ->latest()
+            ->get()
+            ->each(fn($r) => $r->pipeline_type = 'request');
+
+        $allItems = $proposals->concat($requests);
 
         $columns = [
-            'discovery' => $proposals->whereIn('status', ['draft', 'viewed']),
-            'interest' => $proposals->whereIn('status', ['shortlisted', 'interested']),
-            'proposal' => $proposals->whereIn('status', ['submitted', 'in_review']),
-            'negotiation' => $proposals->whereIn('status', ['negotiating', 'counter_offer']),
-            'closed_won' => $proposals->whereIn('status', ['agreed', 'contracted', 'active', 'completed']),
-            'closed_lost' => $proposals->whereIn('status', ['rejected', 'withdrawn', 'cancelled']),
+            'discovery' => $allItems->whereIn('status', ['draft', 'viewed']),
+            'interest' => $allItems->whereIn('status', ['shortlisted', 'interested']),
+            'proposal' => $allItems->whereIn('status', ['submitted', 'in_review', 'pending']),
+            'negotiation' => $allItems->whereIn('status', ['negotiating', 'counter_offer']),
+            'closed_won' => $allItems->whereIn('status', ['agreed', 'contracted', 'active', 'completed', 'accepted']),
+            'closed_lost' => $allItems->whereIn('status', ['rejected', 'withdrawn', 'cancelled']),
         ];
 
         $columnTotals = [];
@@ -47,7 +58,8 @@ class PipelineController extends Controller
 
             $query = Event::published()->upcoming()
                 ->with('packages', 'category')
-                ->whereDoesntHave('sponsorProposals', fn($q) => $q->where('sponsor_id', $userId));
+                ->whereDoesntHave('sponsorProposals', fn($q) => $q->where('sponsor_id', $userId))
+                ->whereDoesntHave('sponsorshipRequests', fn($q) => $q->where('sponsor_id', $userId));
 
             if ($preferences) {
                 if ($preferences->geographic_preferences) {
@@ -73,6 +85,6 @@ class PipelineController extends Controller
             $discoveryEvents = $query->take(10)->get();
         }
 
-        return view('sponsor.pipeline.index', compact('columns', 'columnTotals', 'proposals', 'discoveryEvents'));
+        return view('sponsor.pipeline.index', compact('columns', 'columnTotals', 'allItems', 'discoveryEvents'));
     }
 }

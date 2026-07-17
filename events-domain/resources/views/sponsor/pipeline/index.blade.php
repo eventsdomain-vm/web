@@ -56,15 +56,19 @@
                                     </div>
                                 @endforeach
                             @endif
-                            @forelse($columns[$key] as $proposal)
+                            @forelse($columns[$key] as $item)
+                                @php $viewRoute = $item->pipeline_type === 'request' ? route('sponsor.requests.show', $item) : route('sponsor.proposals.show', $item); @endphp
                                 <div class="bg-{{ $config['color'] }}-50 rounded-lg p-3 border border-{{ $config['color'] }}-100 hover:shadow-sm transition cursor-pointer">
-                                    <h4 class="font-medium text-sm text-gray-900 truncate">{{ $proposal->event?->title ?? 'Event #' . $proposal->event_id }}</h4>
-                                    @if($proposal->budget_offer)
-                                        <p class="text-xs font-medium text-gray-600 mt-1">₹{{ number_format($proposal->budget_offer) }}</p>
+                                    <h4 class="font-medium text-sm text-gray-900 truncate">{{ $item->event?->title ?? 'Event #' . $item->event_id }}</h4>
+                                    @if($item->budget_offer)
+                                        <p class="text-xs font-medium text-gray-600 mt-1">₹{{ number_format($item->budget_offer) }}</p>
+                                    @endif
+                                    @if($item->pipeline_type === 'request')
+                                        <span class="inline-block mt-1 text-[10px] font-medium px-1.5 py-0.5 rounded bg-{{ $item->status_color }}-100 text-{{ $item->status_color }}-700">{{ $item->status_label }}</span>
                                     @endif
                                     <div class="flex items-center justify-between mt-2">
-                                        <span class="text-[10px] text-gray-400">{{ $proposal->created_at->format('M d') }}</span>
-                                        <a href="{{ route('sponsor.proposals.show', $proposal) }}" class="text-[10px] text-terracotta-500 hover:underline">View</a>
+                                        <span class="text-[10px] text-gray-400">{{ $item->created_at->format('M d') }}</span>
+                                        <a href="{{ $viewRoute }}" class="text-[10px] text-terracotta-500 hover:underline">View</a>
                                     </div>
                                 </div>
                             @empty
