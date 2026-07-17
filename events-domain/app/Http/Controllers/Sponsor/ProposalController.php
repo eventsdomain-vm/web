@@ -15,10 +15,21 @@ class ProposalController extends Controller
 {
     public function index(): View
     {
+        $userId = auth()->id();
+
         $proposals = auth()->user()->sponsorProposals()
             ->with('event.category', 'package')
             ->latest()
-            ->paginate(15);
+            ->get()
+            ->each->setAttribute('pipeline_type', 'sponsor_proposal');
+
+        $requests = auth()->user()->sponsorshipRequests()
+            ->with('event.category', 'package')
+            ->latest()
+            ->get()
+            ->each->setAttribute('pipeline_type', 'sponsorship_request');
+
+        $proposals = $proposals->merge($requests)->sortByDesc('created_at');
 
         return view('sponsor.proposals.index', compact('proposals'));
     }

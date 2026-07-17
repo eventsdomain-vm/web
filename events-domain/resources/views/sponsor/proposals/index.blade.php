@@ -86,8 +86,13 @@
                             </dl>
 
                             <div class="flex items-center justify-end mt-5 pt-4 border-t border-gray-100">
-                                <a href="{{ route('sponsor.proposals.show', $proposal) }}" class="btn-primary text-sm px-4 py-2 inline-flex items-center gap-1.5">
-                                    View Proposal
+                                @php
+                                    $routeName = $proposal->pipeline_type === 'sponsorship_request'
+                                        ? 'sponsor.requests.show'
+                                        : 'sponsor.proposals.show';
+                                @endphp
+                                <a href="{{ route($routeName, $proposal) }}" class="btn-primary text-sm px-4 py-2 inline-flex items-center gap-1.5">
+                                    View {{ $proposal->pipeline_type === 'sponsorship_request' ? 'Request' : 'Proposal' }}
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
