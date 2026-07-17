@@ -25,13 +25,37 @@
                         <div class="px-4 py-3 border-b border-gray-100">
                             <div class="flex items-center justify-between">
                                 <h3 class="font-semibold text-sm text-gray-900">{{ $config['label'] }}</h3>
-                                <span class="text-xs text-gray-500">{{ $columnTotals[$key]['count'] }}</span>
+                                <span class="text-xs text-gray-500">{{ $columnTotals[$key]['count'] + ($key === 'discovery' ? $discoveryEvents->count() : 0) }}</span>
                             </div>
                             @if($columnTotals[$key]['value'] > 0)
                                 <p class="text-xs text-gray-400 mt-0.5">₹{{ number_format($columnTotals[$key]['value']) }}</p>
                             @endif
                         </div>
                         <div class="p-3 space-y-2 min-h-[120px]">
+                            @if($key === 'discovery')
+                                @foreach($discoveryEvents as $event)
+                                    <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 hover:shadow-sm transition">
+                                        <h4 class="font-medium text-sm text-gray-900 truncate">{{ $event->title }}</h4>
+                                        <p class="text-[10px] text-gray-500 mt-0.5">
+                                            {{ $event->city }} &middot; {{ $event->start_date?->format('M d, Y') }}
+                                        </p>
+                                        @if($event->packages->isNotEmpty())
+                                            <p class="text-[10px] text-gray-400 mt-0.5">
+                                                {{ $event->packages->count() }} package{{ $event->packages->count() > 1 ? 's' : '' }} available
+                                                @if($event->minimum_sponsorship)
+                                                    &middot; Starts at ₹{{ number_format($event->minimum_sponsorship) }}
+                                                @endif
+                                            </p>
+                                        @endif
+                                        <div class="mt-2">
+                                            <a href="{{ route('sponsor.proposals.create', $event) }}"
+                                               class="inline-block text-[10px] font-medium text-white bg-emerald-500 px-2.5 py-1 rounded hover:bg-emerald-600 transition">
+                                                Propose Sponsorship
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                             @forelse($columns[$key] as $proposal)
                                 <div class="bg-{{ $config['color'] }}-50 rounded-lg p-3 border border-{{ $config['color'] }}-100 hover:shadow-sm transition cursor-pointer">
                                     <h4 class="font-medium text-sm text-gray-900 truncate">{{ $proposal->event?->title ?? 'Event #' . $proposal->event_id }}</h4>
@@ -44,7 +68,9 @@
                                     </div>
                                 </div>
                             @empty
-                                <div class="text-center text-gray-300 text-xs py-4">No deals</div>
+                                @if(!($key === 'discovery' && $discoveryEvents->isNotEmpty()))
+                                    <div class="text-center text-gray-300 text-xs py-4">No deals</div>
+                                @endif
                             @endforelse
                         </div>
                     </div>
