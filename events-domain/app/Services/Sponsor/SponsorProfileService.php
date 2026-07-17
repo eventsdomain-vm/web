@@ -137,6 +137,6 @@ class SponsorProfileService
         if ($sponsor->is_verified) $completedChecks++;
         if ($planStatus['subscribed_to_ai_matching']) $completedChecks++;
 
-        return round(($completedChecks / $totalChecks) * 100);
+        return (int) round(($completedChecks / $totalChecks) * 100);
     }
 }
