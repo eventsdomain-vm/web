@@ -14,15 +14,9 @@ use Illuminate\View\View;
 
 class SecuritySettingsController extends Controller
 {
-    public function index(): View
+    public function index(): \\Illuminate\\Http\\RedirectResponse
     {
-        $userId = auth()->id();
-        $sponsor = Sponsor::where('user_id', $userId)->first();
-
-        $integrations = $sponsor ? $sponsor->integrations()->where('type', 'api_key')->get() : collect();
-        $user = auth()->user();
-
-        return view('sponsor.settings.security', compact('integrations', 'user', 'sponsor'));
+        return redirect()->route('sponsor.dashboard');
     }
 
     public function storeApiKey(Request $request): RedirectResponse

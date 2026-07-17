@@ -23,15 +23,9 @@ class IntegrationController extends Controller
         return Sponsor::where('user_id', auth()->id())->value('id');
     }
 
-    public function index(): View
+    public function index(): \\Illuminate\\Http\\RedirectResponse
     {
-        $sponsorId = $this->getSponsorId();
-
-        $integrations = $sponsorId
-            ? SponsorIntegration::where('sponsor_id', $sponsorId)->with('logs')->get()
-            : collect();
-
-        return view('sponsor.integrations.index', compact('integrations'));
+        return redirect()->route('sponsor.dashboard');
     }
 
     public function store(Request $request): RedirectResponse
