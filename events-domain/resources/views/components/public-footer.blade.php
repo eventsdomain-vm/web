@@ -77,6 +77,7 @@
                     <li><a href="/about" class="hover:text-white transition">About Us</a></li>
                     <li><a href="/contact" class="hover:text-white transition">Contact</a></li>
                     <li><a href="/faq" class="hover:text-white transition">FAQ</a></li>
+                    <li><a href="https://support.eventsdomain.com/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Support</a></li>
                     <li><a href="{{ route('register') }}" class="hover:text-white transition">Create Account</a></li>
                 </ul>
             </div>

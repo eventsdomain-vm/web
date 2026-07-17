@@ -5,8 +5,12 @@
         isHovered: false,
         expandedGroups: JSON.parse(localStorage.getItem('sidebarGroups') || '{}'),
         toggle() {
-            this.isExpanded = !this.isExpanded;
-            localStorage.setItem('sidebarExpanded', this.isExpanded);
+            if (window.innerWidth < 1024) {
+                this.isMobileOpen = !this.isMobileOpen;
+            } else {
+                this.isExpanded = !this.isExpanded;
+                localStorage.setItem('sidebarExpanded', this.isExpanded);
+            }
         },
         init() {
             const saved = localStorage.getItem('sidebarExpanded');
