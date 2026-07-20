@@ -229,22 +229,88 @@
 
              @if($featuredEvents->isNotEmpty())
                  {{-- Carousel Wrapper (Alpine.js powered) --}}
-                 <div x-data="{ activeSlide: 0, total: {{ count($featuredEvents) }} }" class="relative w-full">
-                     
-                     {{-- Carousel Dots at the top (Reference: Top of ticket card) --}}
-                     <div class="flex justify-center items-center gap-2 mb-8">
-                         <template x-for="(dot, index) in total" :key="index">
-                             <button @click="activeSlide = index" 
-                                     class="ticket-slider-dot cursor-pointer"
-                                     :class="activeSlide === index ? 'active' : ''"
-                                     :aria-label="'Go to slide ' + (index + 1)"></button>
-                         </template>
+                 <div
+                     x-data="{
+                         activeSlide: 0,
+                         total: {{ count($featuredEvents) }},
+                         paused: false,
+                         timer: null,
+                         progress: 0,
+                         progressTimer: null,
+                         interval: 4000,
+                         _touchStartX: 0,
+                         _touchEndX: 0,
+                         init() {
+                             this.startAutoPlay();
+                             this.$el.addEventListener('mouseenter', () => { this.paused = true; this.clearTimers(); });
+                             this.$el.addEventListener('mouseleave', () => { this.paused = false; this.startAutoPlay(); });
+                         },
+                         startAutoPlay() {
+                             this.clearTimers();
+                             this.progress = 0;
+                             const step = 50;
+                             this.progressTimer = setInterval(() => {
+                                 this.progress += (step / this.interval) * 100;
+                                 if (this.progress >= 100) this.progress = 100;
+                             }, step);
+                             this.timer = setInterval(() => {
+                                 this.activeSlide = (this.activeSlide + 1) % this.total;
+                                 this.progress = 0;
+                             }, this.interval);
+                         },
+                         clearTimers() {
+                             clearInterval(this.timer);
+                             clearInterval(this.progressTimer);
+                             this.progress = 0;
+                         },
+                         goTo(index) {
+                             this.activeSlide = index;
+                             this.startAutoPlay();
+                         },
+                         prev() { this.goTo((this.activeSlide - 1 + this.total) % this.total); },
+                         next() { this.goTo((this.activeSlide + 1) % this.total); }
+                     }"
+                     x-init="init()"
+                     class="relative w-full">
+
+                     {{-- Carousel Dots + Auto-scroll indicator --}}
+                     <div class="flex flex-col items-center gap-2 mb-8">
+                         <div class="flex justify-center items-center gap-2">
+                             <template x-for="(dot, index) in total" :key="index">
+                                 <button @click="goTo(index)"
+                                         class="ticket-slider-dot cursor-pointer"
+                                         :class="activeSlide === index ? 'active' : ''"
+                                         :aria-label="'Go to slide ' + (index + 1)"></button>
+                             </template>
+                         </div>
+                         {{-- Subtle progress bar showing auto-scroll timer --}}
+                         <div class="flex items-center gap-2">
+                             <div class="w-24 h-0.5 bg-gray-200 rounded-full overflow-hidden" title="Auto-scrolling">
+                                 <div class="h-full bg-[#F26C4F] rounded-full transition-none"
+                                      :style="'width:' + progress + '%'"
+                                      :class="paused ? 'opacity-30' : 'opacity-80'"></div>
+                             </div>
+                             <span class="text-[10px] text-gray-400 font-medium" x-text="paused ? '⏸ Paused' : '▶ Auto'"></span>
+                         </div>
                      </div>
 
-                     {{-- Carousel Track --}}
-                     <div class="overflow-visible">
+                     {{-- Carousel Track with Prev/Next arrows --}}
+                     <div class="overflow-visible relative"
+                          x-on:touchstart.passive="_touchStartX = $event.changedTouches[0].screenX"
+                          x-on:touchend.passive="_touchEndX = $event.changedTouches[0].screenX; (_touchStartX - _touchEndX > 50) ? next() : (_touchEndX - _touchStartX > 50 ? prev() : null)">
+
+                         {{-- Prev Arrow --}}
+                         <button @click="prev()"
+                                 x-show="total > 1"
+                                 class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-20 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100 items-center justify-center text-gray-500 hover:text-[#F26C4F] hover:border-[#F26C4F] hover:shadow-xl transition-all duration-200 hidden md:flex"
+                                 aria-label="Previous event">
+                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                             </svg>
+                         </button>
+
                          <div class="relative overflow-hidden rounded-[26px]">
-                             <div class="flex transition-transform duration-500 ease-out" 
+                             <div class="flex transition-transform duration-500 ease-out"
                                   :style="'transform: translateX(-' + (activeSlide * 100) + '%)'">
                                   @foreach($featuredEvents as $event)
                                       <div class="w-full shrink-0">
@@ -373,6 +439,16 @@
                                   @endforeach
                              </div>
                          </div>
+
+                         {{-- Next Arrow --}}
+                         <button @click="next()"
+                                 x-show="total > 1"
+                                 class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-20 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100 items-center justify-center text-gray-500 hover:text-[#F26C4F] hover:border-[#F26C4F] hover:shadow-xl transition-all duration-200 hidden md:flex"
+                                 aria-label="Next event">
+                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                             </svg>
+                         </button>
                      </div>
                  </div>
              @else
