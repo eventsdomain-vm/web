@@ -1,0 +1,385 @@
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM TICKET-STYLE FEATURED EVENT CARDS (DARK THEME)
+   Physical event ticket aesthetic with notches, perforation lines,
+   decorative barcodes, dot-grid backgrounds, and premium glassmorphic
+   UI elements. Inspired by sponsormyshow.com.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Ticket Wrapper ── */
+.ticket-card-wrapper {
+    position: relative;
+    padding: 6px 0;
+}
+
+/* ── Section Header Divider ──
+   White/light horizontal rule between the subtitle and the carousel dots */
+.ticket-header-divider {
+    border: none;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+    background: none;
+    margin: 16px auto 0;
+    width: 72px;
+}
+
+/* ── Ticket Card Container ──
+   Uses overflow: visible so that notches can extend outside the card boundaries. */
+.ticket-card {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: #0b1329; /* Premium deep navy background */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 15px 35px -5px rgba(11, 19, 41, 0.2), 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+}
+
+/* NO card elevation or zoom on hover, matching reference site */
+.ticket-card:hover {
+    border-color: rgba(227, 83, 54, 0.25);
+    box-shadow: 0 15px 35px -5px rgba(11, 19, 41, 0.25), 0 5px 15px -5px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Left Panel: Event Image & Explore Button (38% Ratio) ── */
+.ticket-image-section {
+    position: relative;
+    width: 38%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-top-left-radius: 23px;
+    border-bottom-left-radius: 23px;
+    background: #090f1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-image-section img.ticket-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* NO image zoom on hover, matching reference site */
+.ticket-card:hover .ticket-image-section img.ticket-bg-image {
+    transform: none;
+}
+
+/* Gradient overlay for readability of CTA button */
+.ticket-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 19, 41, 0.45);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.ticket-image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0b1329, #090f1e);
+    color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Perforation Divider ──
+   Dashed line separating the image and content, with top/bottom semicircular cutouts. */
+.ticket-perforation {
+    position: relative;
+    width: 0;
+    flex-shrink: 0;
+    border-left: 2px dashed rgba(255, 255, 255, 0.15);
+    z-index: 10;
+}
+
+/* Top Cutout Notch */
+.ticket-perforation::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f3f4f6; /* Blends with section background */
+    z-index: 20;
+    box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Bottom Cutout Notch */
+.ticket-perforation::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: -14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff; /* Blends with section background */
+    z-index: 20;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Right Panel: Dynamic Event Details (62% Ratio) ── */
+.ticket-content-section {
+    width: 62%;
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    border-top-right-radius: 23px;
+    border-bottom-right-radius: 23px;
+    position: relative;
+    overflow: hidden;
+
+    /* ticket_bg.jpg with dark gradient overlay for readability */
+    background-image:
+        linear-gradient(135deg, rgba(11, 19, 41, 0.93) 0%, rgba(9, 15, 30, 0.89) 100%),
+        url('/images/ticket_bg.jpg');
+    background-size: cover;
+    background-position: center top;
+    z-index: 2;
+}
+
+/* ── Badges ── */
+.ticket-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.ticket-live-badge--live {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.08);
+    border: 1px solid rgba(74, 222, 128, 0.15);
+}
+
+.ticket-type-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.ticket-category-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Live Badge Dot ── */
+.ticket-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #22c55e;
+    display: inline-block;
+    box-shadow: 0 0 8px #22c55e;
+    animation: ticketPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Title and Metadata ── */
+.ticket-title {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.ticket-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #cbd5e1;
+    font-size: 0.825rem;
+}
+
+.ticket-meta-item svg {
+    color: #94a3b8;
+}
+
+/* ── Description ── */
+.ticket-description {
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* ── Stats Row ── */
+.ticket-stat-label {
+    font-size: 10px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.ticket-stat-val {
+    font-size: 0.95rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* ── Premium White CTA Button ──
+   Centered on the right side image panel */
+.ticket-cta-btn {
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0b1329;
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    width: fit-content;
+}
+
+.ticket-cta-btn:hover {
+    background: #f1f5f9;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.45);
+    transform: translateY(-2px);
+}
+
+.ticket-cta-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.ticket-card:hover .ticket-cta-btn svg {
+    transform: translateX(4px);
+}
+
+/* ── Slider Pagination Dots ── */
+.ticket-slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #cbd5e1;
+    transition: all 0.3s ease;
+}
+
+.ticket-slider-dot.active {
+    background-color: #0b1329;
+    transform: scale(1.3);
+}
+
+@keyframes ticketPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* ── Animation Delay and Entry ── */
+@keyframes ticketSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ticket-animate {
+    animation: ticketSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+/* ── Responsive Styling ── */
+@media (max-width: 1024px) {
+    .ticket-content-section {
+        width: 60%;
+        padding: 30px;
+    }
+    
+    .ticket-image-section {
+        width: 40%;
+    }
+}
+
+@media (max-width: 768px) {
+    .ticket-card {
+        flex-direction: column;
+        border-radius: 20px;
+    }
+
+    .ticket-image-section {
+        width: 100%;
+        min-height: 240px;
+        border-top-left-radius: 19px;
+        border-top-right-radius: 19px;
+        border-bottom-left-radius: 0;
+        padding: 30px;
+    }
+
+    .ticket-perforation {
+        width: auto;
+        height: 0;
+        border-left: none;
+        border-top: 2px dashed rgba(255, 255, 255, 0.15);
+    }
+
+    /* Reposition notches for mobile: left and right edges */
+    .ticket-perforation::before {
+        top: -14px;
+        left: -14px;
+        box-shadow: inset -3px 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .ticket-perforation::after {
+        top: -14px;
+        left: auto;
+        right: -14px;
+        bottom: auto;
+        box-shadow: inset 3px 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .ticket-content-section {
+        width: 100%;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 19px;
+        border-bottom-right-radius: 19px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ticket-content-section {
+        padding: 24px;
+    }
+
+    .ticket-image-section {
+        min-height: 200px;
+    }
+
+    .ticket-cta-btn {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+    }
+
+    /* Collapse 4-column stats to 2-column on small screens */
+    .ticket-content-section .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

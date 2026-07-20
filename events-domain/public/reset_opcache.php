@@ -1,1 +1,0 @@
-<?php opcache_reset(); echo 'web opcache reset: ok';

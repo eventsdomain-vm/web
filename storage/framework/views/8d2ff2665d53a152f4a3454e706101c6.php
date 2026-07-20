@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -12,17 +12,34 @@
     <title>EventsDomain - B2B Event Sponsorship & Partnership Marketplace</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
-    @include('partials.tracking-head')
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/feature-events-ticket.css'])
+    <link rel="manifest" href="<?php echo e(asset('site.webmanifest')); ?>">
+    <?php echo $__env->make('partials.tracking-head', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js', 'resources/css/feature-events-ticket.css']); ?>
 </head>
 <body class="font-sans antialiased bg-white text-gray-900">
 
-    <x-public-header />
+    <?php if (isset($component)) { $__componentOriginal2669d93ac3865159955b6d09c48349b9 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2669d93ac3865159955b6d09c48349b9 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public-header','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('public-header'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2669d93ac3865159955b6d09c48349b9)): ?>
+<?php $attributes = $__attributesOriginal2669d93ac3865159955b6d09c48349b9; ?>
+<?php unset($__attributesOriginal2669d93ac3865159955b6d09c48349b9); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2669d93ac3865159955b6d09c48349b9)): ?>
+<?php $component = $__componentOriginal2669d93ac3865159955b6d09c48349b9; ?>
+<?php unset($__componentOriginal2669d93ac3865159955b6d09c48349b9); ?>
+<?php endif; ?>
 
-    {{-- ═══════════════════════════════════════════
-         1. HERO SECTION
-    ═══════════════════════════════════════════ --}}
+    
     <section class="relative pt-16 lg:pt-18 overflow-hidden bg-gradient-to-br from-terracotta-50 via-white to-terracotta-50/50 min-h-[85vh] flex items-center">
         <div class="absolute inset-0 opacity-[0.08]">
             <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-terracotta-400 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
@@ -46,15 +63,15 @@
                     Ready to Transform Your Events? The B2B marketplace where organizers meet sponsors and partners to build something remarkable.
                 </p>
 
-                {{-- Category & City Filters --}}
+                
                 <div class="bg-white shadow-xl border border-gray-100 rounded-2xl p-4 md:p-6 mb-10 max-w-3xl mx-auto">
-                    <form action="{{ route('events.index') }}" method="GET" class="flex flex-col sm:flex-row gap-3">
+                    <form action="<?php echo e(route('events.index')); ?>" method="GET" class="flex flex-col sm:flex-row gap-3">
                         <div class="flex-1">
                             <select name="category" class="input-field input-lg w-full">
                                 <option value="">All Categories</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div class="flex-1">
@@ -78,7 +95,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-                    <a href="{{ route('register') }}" class="btn-primary btn-lg group">
+                    <a href="<?php echo e(route('register')); ?>" class="btn-primary btn-lg group">
                         Post Your Event Free
                         <svg class="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -93,9 +110,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         2. TRUST INDICATORS
-    ═══════════════════════════════════════════ --}}
+    
     <section class="section py-12 md:py-16" style="background-color: #EDF2F2">
         <div class="container-page">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -119,9 +134,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         3. HOW IT WORKS
-    ═══════════════════════════════════════════ --}}
+    
     <section id="how-it-works" class="section">
         <div class="container-page">
             <div class="text-center mb-16">
@@ -165,9 +178,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         4. CORE CATEGORIES
-    ═══════════════════════════════════════════ --}}
+    
     <section class="section section-alt">
         <div class="container-page">
             <div class="text-center mb-16">
@@ -211,27 +222,25 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-          5. FEATURED EVENTS — Ticket Layout
-     ═══════════════════════════════════════════ --}}
+    
      <section id="events" class="py-16 md:py-24" style="background: linear-gradient(180deg, #f0f2f5 0%, #f9fafb 30%, #ffffff 100%);">
          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-             {{-- Section Header --}}
+             
              <div class="text-center mb-10">
                  <span class="section-label">Featured Events</span>
                  <h2 class="section-title mt-3">Discover Exciting Opportunities</h2>
                  <p class="section-subtitle mt-4 mx-auto">Explore events looking for sponsors and partners</p>
                  <div class="ticket-section-accent mx-auto mt-3"></div>
-                 {{-- White divider line between subtitle and dots --}}
+                 
                  <hr class="ticket-header-divider">
              </div>
 
-             @if($featuredEvents->isNotEmpty())
-                 {{-- Carousel Wrapper (Alpine.js powered) --}}
-                 <div x-data="{ activeSlide: 0, total: {{ count($featuredEvents) }} }" class="relative w-full">
+             <?php if($featuredEvents->isNotEmpty()): ?>
+                 
+                 <div x-data="{ activeSlide: 0, total: <?php echo e(count($featuredEvents)); ?> }" class="relative w-full">
                      
-                     {{-- Carousel Dots at the top (Reference: Top of ticket card) --}}
+                     
                      <div class="flex justify-center items-center gap-2 mb-8">
                          <template x-for="(dot, index) in total" :key="index">
                              <button @click="activeSlide = index" 
@@ -241,30 +250,30 @@
                          </template>
                      </div>
 
-                     {{-- Carousel Track --}}
+                     
                      <div class="overflow-visible">
                          <div class="relative overflow-hidden rounded-[26px]">
                              <div class="flex transition-transform duration-500 ease-out" 
                                   :style="'transform: translateX(-' + (activeSlide * 100) + '%)'">
-                                  @foreach($featuredEvents as $event)
+                                  <?php $__currentLoopData = $featuredEvents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                       <div class="w-full shrink-0">
                                           <div class="ticket-card-wrapper ticket-animate">
-                                              <a href="{{ route('events.show', $event->slug ?? $event->id) }}" class="group block">
+                                              <a href="<?php echo e(route('events.show', $event->slug ?? $event->id)); ?>" class="group block">
                                                   <div class="ticket-card">
 
-                                                      {{-- ▸ LEFT: Event Image & Explore Button (38% ratio) --}}
+                                                      
                                                       <div class="ticket-image-section">
-                                                          @if($event->cover_image_url)
-                                                              <img src="{{ $event->cover_image_url }}" alt="{{ $event->title }}" class="ticket-bg-image">
-                                                          @else
-                                                              <img src="{{ asset('images/ticket_bg.jpg') }}" alt="Event" class="ticket-bg-image">
-                                                          @endif
+                                                          <?php if($event->cover_image_url): ?>
+                                                              <img src="<?php echo e($event->cover_image_url); ?>" alt="<?php echo e($event->title); ?>" class="ticket-bg-image">
+                                                          <?php else: ?>
+                                                              <img src="<?php echo e(asset('images/ticket_bg.jpg')); ?>" alt="Event" class="ticket-bg-image">
+                                                          <?php endif; ?>
 
-                                                          {{-- Dark Overlay --}}
+                                                          
                                                           <div class="ticket-image-overlay"></div>
 
-                                                          {{-- Centered Explore Button --}}
-                                                          <button onclick="event.preventDefault(); window.location='{{ route('events.show', $event->slug ?? $event->id) }}'"
+                                                          
+                                                          <button onclick="event.preventDefault(); window.location='<?php echo e(route('events.show', $event->slug ?? $event->id)); ?>'"
                                                                   class="ticket-cta-btn">
                                                               <span>Explore Event</span>
                                                               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -273,109 +282,115 @@
                                                           </button>
                                                       </div>
 
-                                                      {{-- ▸ PERFORATION LINE (vertical divider) --}}
+                                                      
                                                       <div class="ticket-perforation"></div>
 
-                                                      {{-- ▸ RIGHT: Dynamic Event Details Section (62% ratio) --}}
+                                                      
                                                       <div class="ticket-content-section">
-                                                          {{-- Top: Badges --}}
+                                                          
                                                           <div class="flex justify-between items-start gap-4">
-                                                              {{-- Live Opportunities Badge --}}
+                                                              
                                                               <span class="ticket-live-badge ticket-live-badge--live">
                                                                   <span class="ticket-badge-dot"></span>
                                                                   LIVE OPPORTUNITIES
                                                               </span>
 
-                                                              {{-- Sponsorship Type (e.g. PAID/BARTER) --}}
+                                                              
                                                               <span class="ticket-type-badge rounded-xl px-3 py-1.5 text-xs font-semibold">
-                                                                  @if($event->sponsorship_type)
-                                                                      {{ $event->sponsorship_type === 'paid' ? '💳 PAID' : ($event->sponsorship_type === 'barter' ? '🔄 BARTER' : '💎 HYBRID') }}
-                                                                  @else
+                                                                  <?php if($event->sponsorship_type): ?>
+                                                                      <?php echo e($event->sponsorship_type === 'paid' ? '💳 PAID' : ($event->sponsorship_type === 'barter' ? '🔄 BARTER' : '💎 HYBRID')); ?>
+
+                                                                  <?php else: ?>
                                                                       ✨ OPEN
-                                                                  @endif
+                                                                  <?php endif; ?>
                                                               </span>
                                                           </div>
 
-                                                          {{-- Middle: Event Title & Description --}}
+                                                          
                                                           <div class="my-6">
                                                               <h3 class="ticket-title text-xl md:text-2xl font-bold mb-2 leading-tight">
-                                                                  {{ $event->title }}
+                                                                  <?php echo e($event->title); ?>
+
                                                               </h3>
                                                               <p class="ticket-description text-xs md:text-sm line-clamp-3">
-                                                                  {{ Str::limit($event->description, 160) }}
+                                                                  <?php echo e(Str::limit($event->description, 160)); ?>
+
                                                               </p>
                                                           </div>
 
-                                                           {{-- Bottom: Stats Row + Branding --}}
+                                                           
                                                            <div class="mt-auto">
-                                                               {{-- All 4 stats in one flex row with vertical pipe dividers --}}
+                                                               
                                                                <div style="display:flex; flex-direction:row; align-items:flex-start; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:16px;">
-                                                                   {{-- Date & Time --}}
+                                                                   
                                                                    <div style="flex:1; min-width:0; padding-right:12px;">
                                                                        <span class="ticket-stat-label">Date & Time</span>
-                                                                       <div class="ticket-stat-val">{{ $event->start_date ? $event->start_date->format('M d, Y') : 'TBA' }}</div>
+                                                                       <div class="ticket-stat-val"><?php echo e($event->start_date ? $event->start_date->format('M d, Y') : 'TBA'); ?></div>
                                                                    </div>
-                                                                   {{-- Divider --}}
+                                                                   
                                                                    <div style="width:1px; background:rgba(255,255,255,0.15); margin:2px 0; align-self:stretch;"></div>
-                                                                   {{-- City / State --}}
+                                                                   
                                                                    <div style="flex:1; min-width:0; padding:0 12px;">
                                                                        <span class="ticket-stat-label">City / State</span>
-                                                                       <div class="ticket-stat-val">{{ $event->city ?? ($event->location ?? 'India') }}</div>
+                                                                       <div class="ticket-stat-val"><?php echo e($event->city ?? ($event->location ?? 'India')); ?></div>
                                                                    </div>
-                                                                   {{-- Divider --}}
+                                                                   
                                                                    <div style="width:1px; background:rgba(255,255,255,0.15); margin:2px 0; align-self:stretch;"></div>
-                                                                   {{-- Ticket Cost --}}
+                                                                   
                                                                    <div style="flex:1; min-width:0; padding:0 12px;">
                                                                        <span class="ticket-stat-label">Ticket Cost</span>
                                                                        <div class="ticket-stat-val">
-                                                                           @if($event->min_sponsorship_amount)
-                                                                               @php
+                                                                           <?php if($event->min_sponsorship_amount): ?>
+                                                                               <?php
                                                                                    $amt = $event->min_sponsorship_amount;
                                                                                    $formatted = $amt >= 100000 ? number_format($amt/100000, 1).'L+' : ($amt >= 1000 ? number_format($amt/1000, 0).'K+' : '₹'.$amt);
-                                                                               @endphp
-                                                                               ₹{{ $formatted }}
-                                                                           @else
+                                                                               ?>
+                                                                               ₹<?php echo e($formatted); ?>
+
+                                                                           <?php else: ?>
                                                                                Open
-                                                                           @endif
+                                                                           <?php endif; ?>
                                                                        </div>
                                                                    </div>
-                                                                   {{-- Divider --}}
+                                                                   
                                                                    <div style="width:1px; background:rgba(255,255,255,0.15); margin:2px 0; align-self:stretch;"></div>
-                                                                   {{-- Expected Crowd --}}
+                                                                   
                                                                    <div style="flex:1; min-width:0; padding-left:12px; text-align:right;">
                                                                        <span class="ticket-stat-label">Expected Crowd</span>
                                                                        <div class="ticket-stat-val">
-                                                                           @php
+                                                                           <?php
                                                                                $crowd = $event->expected_audience ?? 500;
                                                                                $crowdFmt = $crowd >= 100000 ? number_format($crowd/100000,1).'L+' : ($crowd >= 1000 ? number_format($crowd/1000,0).'K+' : $crowd.'+');
-                                                                           @endphp
-                                                                           {{ $crowdFmt }}
+                                                                           ?>
+                                                                           <?php echo e($crowdFmt); ?>
+
                                                                        </div>
                                                                    </div>
                                                                </div>
-                                                               {{-- Branding: use footer logo instead of text --}}
+                                                               
                                                                <div class="flex items-center justify-between">
                                                                    <div class="flex flex-col">
-                                                                       <img src="{{ asset('logo-white.png') }}" alt="EventsDomain" style="height:28px; width:auto; object-fit:contain;">
+                                                                       <img src="<?php echo e(asset('logo-white.png')); ?>" alt="EventsDomain" style="height:28px; width:auto; object-fit:contain;">
                                                                        <span class="text-[9px] text-gray-400" style="margin-top:2px;">The bridge between brands & experiences.</span>
                                                                    </div>
                                                                    <span class="ticket-category-pill rounded-full px-3 py-1 text-xs font-semibold">
-                                                                       {{ $event->category->name ?? 'General' }}
+                                                                       <?php echo e($event->category->name ?? 'General'); ?>
+
                                                                    </span>
                                                                </div>
                                                            </div>
-                                                       </div>{{-- end ticket-content-section --}}
+                                                       </div>
 
-                                                  </div>{{-- end ticket-card --}}
+                                                  </div>
                                               </a>
-                                          </div>{{-- end ticket-card-wrapper --}}
+                                          </div>
                                       </div>
-                                  @endforeach
+                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                              </div>
                          </div>
                      </div>
                  </div>
-             @else
+             <?php else: ?>
                  <div class="text-center py-16 bg-white rounded-3xl shadow-elegant border-2 border-dashed border-gray-200">
                      <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                          <svg class="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -384,16 +399,16 @@
                      </div>
                      <h3 class="text-xl font-semibold text-gray-900 mb-2">No events found</h3>
                      <p class="text-gray-600 mb-6">Try adjusting your filters or check back later for new opportunities.</p>
-                     <a href="{{ route('events.index') }}" class="inline-flex items-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white px-6 py-3 rounded-xl font-semibold transition-colors">
+                     <a href="<?php echo e(route('events.index')); ?>" class="inline-flex items-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white px-6 py-3 rounded-xl font-semibold transition-colors">
                          Browse All Events
                      </a>
                  </div>
-             @endif
+             <?php endif; ?>
          </div>
      </section>
 
      <div class="text-center mt-12 mb-8">
-         <a href="{{ route('events.index') }}" class="btn-primary btn-lg group">
+         <a href="<?php echo e(route('events.index')); ?>" class="btn-primary btn-lg group">
              View All Events
              <svg class="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -401,9 +416,7 @@
          </a>
      </div>
 
-    {{-- ═══════════════════════════════════════════
-         6. FOR ORGANIZERS SECTION
-    ═══════════════════════════════════════════ --}}
+    
     <section class="section" style="background-color: #4A6362">
         <div class="container-page">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -439,7 +452,7 @@
                         </li>
                     </ul>
 
-                    <a href="{{ route('register') }}" class="btn-white btn-lg group">
+                    <a href="<?php echo e(route('register')); ?>" class="btn-white btn-lg group">
                         Start Free Today
                         <svg class="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
@@ -469,9 +482,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         7. FOR SPONSORS SECTION
-    ═══════════════════════════════════════════ --}}
+    
     <section id="sponsors" class="section">
         <div class="container-page">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -536,7 +547,7 @@
                         </li>
                     </ul>
 
-                    <a href="{{ route('register') }}" class="btn-primary btn-lg group">
+                    <a href="<?php echo e(route('register')); ?>" class="btn-primary btn-lg group">
                         Become a Sponsor
                         <svg class="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
@@ -545,9 +556,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         8. FOR PARTNERS SECTION
-    ═══════════════════════════════════════════ --}}
+    
     <section id="partners" class="section section-alt">
         <div class="container-page">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -583,7 +592,7 @@
                         </li>
                     </ul>
 
-                    <a href="{{ route('register') }}" class="btn-primary btn-lg group">
+                    <a href="<?php echo e(route('register')); ?>" class="btn-primary btn-lg group">
                         Join as Partner
                         <svg class="w-5 h-5 ml-2 inline transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
@@ -623,9 +632,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         9. WHY EVENTS DOMAIN
-    ═══════════════════════════════════════════ --}}
+    
     <section class="section">
         <div class="container-page">
             <div class="text-center mb-16">
@@ -678,9 +685,7 @@
         </div>
     </section>
 
-    {{-- ═══════════════════════════════════════════
-         10. FINAL CTA SECTION
-    ═══════════════════════════════════════════ --}}
+    
     <section class="section relative overflow-hidden" style="background-color: #4A6362">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-terracotta-400 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
@@ -709,25 +714,45 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('register') }}" class="btn-white btn-lg">Get Started Free</a>
+                <a href="<?php echo e(route('register')); ?>" class="btn-white btn-lg">Get Started Free</a>
                 <a href="/contact" class="btn btn-lg border-2 border-white/30 text-white hover:bg-white/10">Contact Sales</a>
             </div>
         </div>
     </section>
 
-    <x-public-footer />
+    <?php if (isset($component)) { $__componentOriginal2702f386a0a6c0cb365c22db0bdb7e06 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2702f386a0a6c0cb365c22db0bdb7e06 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public-footer','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('public-footer'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2702f386a0a6c0cb365c22db0bdb7e06)): ?>
+<?php $attributes = $__attributesOriginal2702f386a0a6c0cb365c22db0bdb7e06; ?>
+<?php unset($__attributesOriginal2702f386a0a6c0cb365c22db0bdb7e06); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2702f386a0a6c0cb365c22db0bdb7e06)): ?>
+<?php $component = $__componentOriginal2702f386a0a6c0cb365c22db0bdb7e06; ?>
+<?php unset($__componentOriginal2702f386a0a6c0cb365c22db0bdb7e06); ?>
+<?php endif; ?>
 
     <script type="application/ld+json">
     {
-        "@@context": "https://schema.org",
-        "@@type": "WebSite",
+        "@context": "https://schema.org",
+        "@type": "WebSite",
         "name": "EventsDomain",
         "url": "https://eventsdomain.com",
         "description": "India's B2B Event Sponsorship & Partnership Marketplace",
         "potentialAction": {
-            "@@type": "SearchAction",
+            "@type": "SearchAction",
             "target": "https://eventsdomain.com/events?q={search_term_string}",
             "query-input": "required name=search_term_string"
     </script>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\vm\resources\views/welcome.blade.php ENDPATH**/ ?>

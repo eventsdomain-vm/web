@@ -37,7 +37,7 @@ class EventCrudTest extends TestCase
         $response = $this->actingAs($this->organizer)->get(route('organizer.events.create'));
 
         $response->assertStatus(200);
-        $response->assertSee('Event Submission Form');
+        $response->assertSee('List Your Event for Sponsorship');
         $response->assertSee('Basic Info');
         $response->assertSee('Dates');
         $response->assertSee('Venues');
