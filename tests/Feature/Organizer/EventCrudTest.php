@@ -39,8 +39,8 @@ class EventCrudTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('List Your Event for Sponsorship');
         $response->assertSee('Basic Info');
-        $response->assertSee('Dates');
-        $response->assertSee('Venues');
+        $response->assertSee('Location');
+        $response->assertSee('Sponsorship');
     }
 
     public function test_organizer_can_store_event_with_minimal_data(): void
